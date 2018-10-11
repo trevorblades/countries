@@ -5,15 +5,18 @@
   "scripts": {
     "pretest": "eslint index.js",
     "test": "echo \"Error: no test specified\" && exit",
-    "start": "nodemon -r esm index.js"
+    "start": "nodemon -r dotenv/config -r esm index.js"
   },
   "dependencies": {
-    "@trevorblades/eslint-config": "^6.18.0",
     "apollo-server": "^2.1.0",
     "countries-list": "^2.3.2",
-    "eslint": "^5.6.1",
     "esm": "^3.0.84",
-    "graphql": "^14.0.2",
+    "graphql": "^14.0.2"
+  },
+  "devDependencies": {
+    "@trevorblades/eslint-config": "^6.18.0",
+    "dotenv": "^6.1.0",
+    "eslint": "^5.6.1",
     "nodemon": "^1.18.4"
   }
 }

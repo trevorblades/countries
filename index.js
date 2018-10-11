@@ -20,8 +20,8 @@ const typeDefs = gql`
 `;
 
 const countriesArray = Object.keys(countries).map(code => ({
-  code,
-  ...countries[code]
+  ...countries[code],
+  code
 }));
 
 const resolvers = {
@@ -32,6 +32,6 @@ const resolvers = {
 
 const server = new ApolloServer({typeDefs, resolvers});
 
-server.listen().then(({url}) => {
+server.listen({port: process.env.PORT}).then(({url}) => {
   console.log(`🚀  Server ready at ${url}`);
 });
