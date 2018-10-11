@@ -1,32 +1,64 @@
 import {ApolloServer, gql} from 'apollo-server';
-import {countries} from 'countries-list';
+import {continents, countries, languages} from 'countries-list';
+
+function toArray(object) {
+  return Object.keys(object).map(code => ({
+    ...object[code],
+    code
+  }));
+}
+
+const data = {
+  continents: Object.entries(continents).map(([code, name]) => ({code, name})),
+  countries: toArray(countries),
+  languages: toArray(languages)
+};
 
 const typeDefs = gql`
+  type Continent {
+    code: String
+    name: String
+  }
+
   type Country {
     code: String
     name: String
     native: String
     phone: String
-    continent: String
+    continent: Continent
     currency: String
-    languages: [String]
+    languages: [Language]
     emoji: String
     emojiU: String
   }
 
+  type Language {
+    code: String
+    name: String
+    native: String
+    rtl: Int
+  }
+
   type Query {
+    continents: [Continent]
     countries: [Country]
+    languages: [Language]
   }
 `;
 
-const countriesArray = Object.keys(countries).map(code => ({
-  ...countries[code],
-  code
-}));
-
 const resolvers = {
+  Country: {
+    continent: country =>
+      data.continents.find(continent => continent.code === country.continent),
+    languages: country =>
+      data.languages.filter(language =>
+        country.languages.includes(language.code)
+      )
+  },
   Query: {
-    countries: () => countriesArray
+    continents: () => data.continents,
+    countries: () => data.countries,
+    languages: () => data.languages
   }
 };
 
