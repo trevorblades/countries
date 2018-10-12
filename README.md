@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.com/trevorblades/countries.svg?branch=master)](https://travis-ci.com/trevorblades/countries)
 
-A public GraphQL API for data about countries, continents, and languages. This project uses [Countries list](https://annexare.github.io/Countries/) as a data source, so the schema follows the shape of that data, with a couple exceptions:
+A public GraphQL API for data about countries, continents, and languages. This project uses [Countries List](https://annexare.github.io/Countries/) as a data source, so the schema follows the shape of that data, with a couple exceptions:
 
 1. The codes used to key the objects in the original data are available as a `code` property on each item returned from the API.
 2. The `continent` and `languages` properties are now objects and arrays of objects, respectively.
