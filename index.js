@@ -13,6 +13,7 @@ function toArray(object) {
 const server = new ApolloServer({
   typeDefs,
   resolvers,
+  introspection: true,
   playground: true,
   context: {
     continents: Object.entries(continents).map(([code, name]) => ({
