@@ -1,6 +1,8 @@
 # Countries GraphQL API
 
 [![Build Status](https://travis-ci.com/trevorblades/countries.svg?branch=master)](https://travis-ci.com/trevorblades/countries)
+[![Donate](https://img.shields.io/beerpay/trevorblades/countries.svg)](https://beerpay.io/trevorblades/countries)
+
 
 A public GraphQL API for information about countries, continents, and languages. This project uses [Countries List](https://annexare.github.io/Countries/) as a data source, so the schema follows the shape of that data, with a couple exceptions:
 
