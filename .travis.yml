@@ -4,5 +4,5 @@ cache:
   directories:
     - node_modules
 after_success:
-  - node -r esm index.js &
+  - node -r esm index.js
   - npx apollo schema:check --endpoint=http://localhost:$PORT
