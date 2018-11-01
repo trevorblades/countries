@@ -15,6 +15,9 @@ const server = new ApolloServer({
   resolvers,
   introspection: true,
   playground: true,
+  engine: {
+    apiKey: process.env.ENGINE_API_KEY
+  },
   context: {
     continents: Object.entries(continents).map(([code, name]) => ({
       code,
