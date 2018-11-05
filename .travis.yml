@@ -5,3 +5,8 @@ cache:
     - node_modules
 before_script: node -r esm index.js &
 after_success: npx apollo schema:check --endpoint=http://localhost:$PORT
+deploy:
+  provider: script
+  script: npx apollo schema:publish --endpoint=http://localhost:$PORT
+  on:
+    branch: master
