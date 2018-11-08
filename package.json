@@ -15,6 +15,7 @@
   },
   "devDependencies": {
     "@trevorblades/eslint-config": "^6.18.0",
+    "apollo": "^1.9.2",
     "dotenv": "^6.1.0",
     "eslint": "^5.6.1",
     "nodemon": "^1.18.4"
