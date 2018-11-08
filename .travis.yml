@@ -8,5 +8,6 @@ after_success: npx apollo schema:check
 deploy:
   provider: script
   script: npx apollo schema:publish
+  skip_cleanup: true
   on:
     branch: master
