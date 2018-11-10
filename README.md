@@ -9,7 +9,7 @@ A public GraphQL API for information about countries, continents, and languages.
 1. The codes used to key the objects in the original data are available as a `code` property on each item returned from the API.
 2. The `continent` and `languages` properties are now objects and arrays of objects, respectively.
 
-## Querying
+## Writing queries
 
 In:
 
