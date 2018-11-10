@@ -137,7 +137,7 @@ ReactDOM.render(<CountrySelect />, document.getElementById('root'));
 
 ### 4. Profit 🎉
 
-![faa4bd37fe24eed92b9e4453910b95b3](https://user-images.githubusercontent.com/1216917/48295448-add11200-e440-11e8-8215-95ed3b031cf9.gif)
+![Country dropdown of the future](https://i.gyazo.com/89fc877623243bda314c555583102da6.gif)
 
 Now you've got a slick, self-contained country select component that only fetches its data when it's mounted. That means that if it exists within an unmounted route or the falsey end of a condition, it doesn't request any data or take up any extra space in your bundle.
 
