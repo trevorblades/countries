@@ -55,8 +55,8 @@ Check out [the playground](https://countries.trevorblades.com) to explore the sc
 
 One practical use of this API is to create a country select field that fetches its options dynamically. Normally, you would need to install an npm package or create a file in your project containing the necessary data -- usually country codes and names -- and bundle that data with your app code. This results in a lot of extra kilobytes hanging around in your bundle for a feature that might not always get rendered or used. Here's what that data size looks like:
 
-- **50.1 KB** using the `countries` export from [Countries List](https://annexare.github.io/Countries/)
-- **14.2 KB** using this API (~70% smaller)
+- **50.1 KB** with the `countries` export from [Countries List](https://annexare.github.io/Countries/)
+- **14.2 KB** with this API (~70% smaller)
 
 In this example, I'll be using [React](https://reactjs.org/) and some [Apollo](https://apollographql.com) tools. Apollo's GraphQL client and React components make it simple to execute, handle, and cache GraphQL queries. You can also accomplish this by sending a POST request to this API using `fetch` or your favourite request library, but I won't cover that in this example.
 
@@ -75,7 +75,7 @@ import ReactDOM from 'react-dom';
 import gql from 'graphql-tag';
 import {Query} from 'react-apollo';
 
-// initialize our Apollo GraphQL client
+// initialize a GraphQL client
 const client = new ApolloClient({
   uri: 'https://countries.trevorblades.com'
 });
@@ -90,7 +90,8 @@ const GET_COUNTRIES = gql`
   }
 `;
 
-class App extends Component {
+// create a component that renders an API data-powered select input
+class CountrySelect extends Component {
   constructor(props) {
     super(props);
 
@@ -129,9 +130,15 @@ class App extends Component {
   }
 }
 
-ReactDOM.render(<App />, document.getElementById('root'));
+ReactDOM.render(<CountrySelect />, document.getElementById('root'));
 ```
 
-### 3. Behold, your mighty country select 🎉
+### 3. ???
+
+### 4. Profit 🎉
 
 ![faa4bd37fe24eed92b9e4453910b95b3](https://user-images.githubusercontent.com/1216917/48295448-add11200-e440-11e8-8215-95ed3b031cf9.gif)
+
+Now you've got a slick, self-contained country select component that only fetches its data when it's mounted. That means that if it exists within an unmounted route or the falsey end of a condition, it doesn't request any data or take up any extra space in your bundle.
+
+This is just one of many interesting things that you can build with this API. If you create something cool using this, let me know and I'll give you a shoutout here.
