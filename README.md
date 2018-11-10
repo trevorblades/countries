@@ -60,13 +60,13 @@ One practical use of this API is to create a country select field that fetches i
 
 In this example, I'll be using [React](https://reactjs.org/) and some [Apollo](https://apollographql.com) tools. Apollo's GraphQL client and React components make it simple to execute, handle, and cache GraphQL queries. You can also accomplish this by sending a POST request to this API using `fetch` or your favourite request library, but I won't cover that in this example.
 
-### Install dependencies
+### 1. Install dependencies
 
 ```shell
 $ npm install react react-dom react-apollo apollo-boost graphql graphql-tag
 ```
 
-### Build a React component
+### 2. Build a React component
 
 ```js
 import ApolloClient from 'apollo-boost';
@@ -132,4 +132,6 @@ class App extends Component {
 ReactDOM.render(<App />, document.getElementById('root'));
 ```
 
-### Behold, your mighty country select 🎉
+### 3. Behold, your mighty country select 🎉
+
+![faa4bd37fe24eed92b9e4453910b95b3](https://user-images.githubusercontent.com/1216917/48295448-add11200-e440-11e8-8215-95ed3b031cf9.gif)
