@@ -1,6 +1,6 @@
 {
   "engines": {
-    "node": "8"
+    "node": "10"
   },
   "scripts": {
     "pretest": "eslint index.js",
