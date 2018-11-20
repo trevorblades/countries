@@ -135,7 +135,7 @@ ReactDOM.render(<CountrySelect />, document.getElementById('root'));
 
 ### 3. ???
 
-### 4. Profit 🎉
+### 4. Profit :tada:
 
 ![Country dropdown of the future](https://i.gyazo.com/89fc877623243bda314c555583102da6.gif)
 
