@@ -1,5 +1,5 @@
-import resolvers from './resolvers.js';
-import typeDefs from './schema.js';
+import resolvers from './resolvers';
+import typeDefs from './schema';
 import {ApolloServer} from 'apollo-server';
 import {continents, countries, languages} from 'countries-list';
 
@@ -15,14 +15,14 @@ const server = new ApolloServer({
   resolvers,
   introspection: true,
   playground: true,
+  engine: {
+    apiKey: process.env.ENGINE_API_KEY
+  },
   context: {
     continents: Object.entries(continents).map(([code, name]) => ({
       code,
       name
     })),
-    engine: {
-      apiKey: process.env.ENGINE_API_KEY
-    },
     countries: toArray(countries),
     languages: toArray(languages)
   }
