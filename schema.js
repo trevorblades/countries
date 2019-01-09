@@ -4,6 +4,7 @@ export default gql`
   type Continent {
     code: String
     name: String
+    countries: [Country]
   }
 
   type Country {

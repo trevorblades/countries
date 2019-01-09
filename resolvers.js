@@ -9,6 +9,10 @@ export default {
     languages: (country, args, {languages}) =>
       languages.filter(language => country.languages.includes(language.code))
   },
+  Continent: {
+    countries: (continent, args, {countries}) =>
+      countries.filter(country => country.continent === continent.code)
+  },
   Query: {
     continent: (parent, args, {continents}) =>
       continents.find(byCode(args.code)),
