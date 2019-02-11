@@ -127,8 +127,13 @@ class CountrySelect extends Component {
 ReactDOM.render(<CountrySelect />, document.getElementById('root'));
 ```
 
-### Now you're worldwide
+### Now you're worldwide! 🌎
+
+Check out [this CodeSandbox link](https://codesandbox.io/s/913llyjylo) for a complete, working copy of this example. This `CountrySelect` component only fetches its country data when it mounts. That means that if it exists within an unmatched route or the falsey end of a condition, it doesn't request any data.
 
 ![Mr. Worldwide](https://raw.githubusercontent.com/trevorblades/countries/master/mr-worldwide.jpg)
 
-Check out [this CodeSandbox link](https://codesandbox.io/s/913llyjylo) for a working version of this example. This `CountrySelect` component only fetches its country data when it mounts. That means that if it exists within an unmatched route or the falsey end of a condition, it doesn't request any data.
+> Reach for the stars
+> And if you don't grab 'em,
+> At least you'll fall on top of the world
+> &mdash; Pitbull
