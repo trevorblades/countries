@@ -53,22 +53,22 @@ Check out [the playground](https://countries.trevorblades.com) to explore the sc
 
 ## Example
 
-One practical use of this API is to create a country select field that fetches its options dynamically. Normally, you would need to install an npm package or create a file in your project containing the necessary data -- usually country codes and names -- and bundle that data with your app code. This results in a lot of extra kilobytes hanging around in your bundle for a feature that might not always get rendered or used. Here's what that data size looks like:
+One practical use of this API is to create a country select field that fetches its options dynamically. Normally, you would need to install an npm package or create a file in your project containing the necessary data (normally country codes and names) and bundle that data with your app code. This results in a lot of extra kilobytes hanging around in your bundle for a feature that might not always get rendered or used. Here's a simple data size comparison:
 
 - **50.1 KB** with the `countries` export from [Countries List](https://annexare.github.io/Countries/)
 - **14.2 KB** with this API (~70% smaller)
 
-In this example, I'll be using [React](https://reactjs.org/) and some [Apollo](https://apollographql.com) tools. Apollo's GraphQL client and React components make it simple to execute, handle, and cache GraphQL queries. You can also accomplish this by sending a POST request to this API using `fetch` or your favourite request library, but I won't cover that in this example.
+This example uses [React](https://reactjs.org/) and [Apollo GraphQL](https://apollographql.com) tools. Apollo's GraphQL client and React components make it simple to execute, handle, and cache GraphQL queries. You can also accomplish this by sending a POST request to this API using `fetch` or your favourite request library, but this example won't cover that.
 
-If you are prefer [React native](https://facebook.github.io/react-native/). Check out this [example](https://github.com/muhzi4u/country-directory-app).
+If you prefer [React native](https://facebook.github.io/react-native/), check out [this example](https://github.com/muhzi4u/country-directory-app).
 
-### 1. Install dependencies
+### Install dependencies
 
 ```shell
 $ npm install react react-dom react-apollo apollo-boost graphql graphql-tag
 ```
 
-### 2. Build a React component
+### Build the component
 
 ```js
 import ApolloClient from 'apollo-boost';
@@ -94,19 +94,14 @@ const GET_COUNTRIES = gql`
 
 // create a component that renders an API data-powered select input
 class CountrySelect extends Component {
-  constructor(props) {
-    super(props);
+  state = {
+    country: 'US'
+  };
 
-    // set a default value
-    this.state = {
-      country: 'US'
-    };
-  }
-  
   // set the selected country to the new input value
-  onCountryChange(event) {
+  onCountryChange = event => {
     this.setState({country: event.target.value});
-  }
+  };
 
   render() {
     return (
@@ -115,10 +110,7 @@ class CountrySelect extends Component {
           if (loading) return <p>Loading...</p>;
           if (error) return <p>{error.message}</p>;
           return (
-            <select
-              value={this.state.country}
-              onChange={this.onCountryChange.bind(this)}
-            >
+            <select value={this.state.country} onChange={this.onCountryChange}>
               {data.countries.map(country => (
                 <option key={country.code} value={country.code}>
                   {country.name}
@@ -135,12 +127,8 @@ class CountrySelect extends Component {
 ReactDOM.render(<CountrySelect />, document.getElementById('root'));
 ```
 
-### 3. ???
+### Now you're worldwide
 
-### 4. Profit :tada:
+![Mr. Worldwide](https://raw.githubusercontent.com/trevorblades/countries/master/mr-worldwide.jpg)
 
-![Country dropdown of the future](https://i.gyazo.com/89fc877623243bda314c555583102da6.gif)
-
-Now you've got a slick, self-contained country select component that only fetches its data when it's mounted. That means that if it exists within an unmounted route or the falsey end of a condition, it doesn't request any data or take up any extra space in your bundle.
-
-This is just one of many interesting things that you can build with this API. If you create something cool using this, let me know and I'll give you a shoutout here.
+Check out [this CodeSandbox link](https://codesandbox.io/s/913llyjylo) for a working version of this example. This `CountrySelect` component only fetches its country data when it mounts. That means that if it exists within an unmatched route or the falsey end of a condition, it doesn't request any data.
