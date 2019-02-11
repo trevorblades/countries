@@ -133,7 +133,6 @@ Check out [this CodeSandbox link](https://codesandbox.io/s/913llyjylo) for a com
 
 ![Mr. Worldwide](https://raw.githubusercontent.com/trevorblades/countries/master/mr-worldwide.jpg)
 
-> Reach for the stars
-> And if you don't grab 'em,
-> At least you'll fall on top of the world
+> Reach for the stars, and if you don't grab 'em, at least you'll fall on top of the world
+>
 > &mdash; Pitbull
