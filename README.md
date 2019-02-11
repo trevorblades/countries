@@ -127,7 +127,9 @@ ReactDOM.render(<CountrySelect />, document.getElementById('root'));
 
 ### Now you're worldwide! 🌎
 
-Check out [this CodeSandbox link](https://codesandbox.io/s/913llyjylo) for a complete, working copy of this example. This `CountrySelect` component only fetches its country data when it mounts. That means that if it exists within an unmatched route or the falsey end of a condition, it doesn't request any data.
+[![Edit Countries GraphQL API example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/913llyjylo)
+
+Check out the CodeSandbox link above for a complete, working copy of this example. This `CountrySelect` component only fetches its country data when it mounts. That means that if it exists within an unmatched route or the falsey end of a condition, it doesn't request any data.
 
 ![Mr. Worldwide](https://raw.githubusercontent.com/trevorblades/countries/master/mr-worldwide.jpg)
 
