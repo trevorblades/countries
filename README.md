@@ -11,8 +11,6 @@ A public GraphQL API for information about countries, continents, and languages.
 
 ## Writing queries
 
-In:
-
 ```graphql
 {
   country(code: "BR") {
@@ -28,7 +26,7 @@ In:
 }
 ```
 
-Out:
+The above GraphQL query will produce the following JSON response:
 
 ```json
 {
