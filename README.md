@@ -60,6 +60,8 @@ One practical use of this API is to create a country select field that fetches i
 
 In this example, I'll be using [React](https://reactjs.org/) and some [Apollo](https://apollographql.com) tools. Apollo's GraphQL client and React components make it simple to execute, handle, and cache GraphQL queries. You can also accomplish this by sending a POST request to this API using `fetch` or your favourite request library, but I won't cover that in this example.
 
+If you are prefer [React native](https://facebook.github.io/react-native/). Check out this [example](https://github.com/muhzi4u/country-directory-app).
+
 ### 1. Install dependencies
 
 ```shell
