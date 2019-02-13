@@ -78,7 +78,7 @@ ReactDOM.render(<CountrySelect />, document.getElementById('root'));
 
 Check out the CodeSandbox link above for a complete, working copy of this example. This `CountrySelect` component only fetches its country data when it mounts. That means that if it exists within an unmatched route or the falsey end of a condition, it doesn't request any data.
 
-![Mr. Worldwide](https://raw.githubusercontent.com/trevorblades/countries/master/mr-worldwide.jpg)
+![Mr. Worldwide](./mr-worldwide.jpg)
 
 > Reach for the stars, and if you don't grab 'em, at least you'll fall on top of the world
 >
