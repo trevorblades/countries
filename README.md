@@ -1,3 +1,5 @@
+<img align="right" src="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/apple/155/earth-globe-americas_1f30e.png" alt="globe" width="120">
+
 # Countries GraphQL API
 
 [![Build Status](https://travis-ci.com/trevorblades/countries.svg?branch=master)](https://travis-ci.com/trevorblades/countries)
