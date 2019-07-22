@@ -1,25 +1,67 @@
-function byCode(code) {
-  return item => item.code === code;
-}
+import {continents, countries, languages} from 'countries-list';
 
 export default {
   Country: {
-    continent: (country, args, {continents}) =>
-      continents.find(continent => continent.code === country.continent),
-    languages: (country, args, {languages}) =>
-      languages.filter(language => country.languages.includes(language.code))
+    continent({continent}) {
+      return {
+        code: continent,
+        name: continents[continent]
+      };
+    },
+    languages(parent) {
+      return parent.languages.map(code => {
+        const language = languages[code];
+        return {
+          ...language,
+          code
+        };
+      });
+    }
   },
   Continent: {
-    countries: (continent, args, {countries}) =>
-      countries.filter(country => country.continent === continent.code)
+    countries(parent) {
+      return Object.entries(countries)
+        .filter(entry => entry[1].continent === parent.code)
+        .map(([code, country]) => ({
+          ...country,
+          code
+        }));
+    }
   },
   Query: {
-    continent: (parent, args, {continents}) =>
-      continents.find(byCode(args.code)),
-    continents: (parent, args, {continents}) => continents,
-    country: (parent, args, {countries}) => countries.find(byCode(args.code)),
-    countries: (parent, args, {countries}) => countries,
-    language: (parent, args, {languages}) => languages.find(byCode(args.code)),
-    languages: (parent, args, {languages}) => languages
+    continent(parent, {code}) {
+      return {
+        code,
+        name: continents[code]
+      };
+    },
+    continents() {
+      return Object.entries(continents).map(([code, name]) => ({
+        code,
+        name
+      }));
+    },
+    country(parent, {code}) {
+      return countries[code];
+    },
+    countries() {
+      return Object.entries(countries).map(([code, country]) => ({
+        ...country,
+        code
+      }));
+    },
+    language(parent, {code}) {
+      const language = languages[code];
+      return {
+        ...language,
+        code
+      };
+    },
+    languages() {
+      return Object.entries(languages).map(([code, language]) => ({
+        ...language,
+        code
+      }));
+    }
   }
 };
