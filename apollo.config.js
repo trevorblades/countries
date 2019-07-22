@@ -1,3 +1,5 @@
 module.exports = {
-  endpoint: `http://localhost:${process.env.PORT}`
+  endpoint: {
+    url: `http://localhost:${process.env.PORT}`
+  }
 };
