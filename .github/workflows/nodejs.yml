@@ -23,7 +23,7 @@ jobs:
         npm test
     - name: Register schema
       run: |
-        npx pm2 start index.js --node-args"-r esm"
+        'npx pm2 start index.js --node-args"-r esm"'
         npx apollo service:push
       env:
         port: 5000
