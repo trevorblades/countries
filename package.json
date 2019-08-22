@@ -14,10 +14,11 @@
     "graphql": "^14.4.2"
   },
   "devDependencies": {
-    "@trevorblades/eslint-config": "^6.18.0",
+    "@trevorblades/eslint-config": "^7.0.1",
     "apollo": "^2.16.0",
     "dotenv": "^6.1.0",
-    "eslint": "^5.6.1",
-    "nodemon": "^1.18.7"
+    "eslint": "^6.2.1",
+    "nodemon": "^1.18.7",
+    "pm2": "^3.5.1"
   }
 }
