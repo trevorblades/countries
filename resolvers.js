@@ -42,7 +42,11 @@ export default {
       }));
     },
     country(parent, {code}) {
-      return countries[code];
+      const country = countries[code];
+      return {
+        ...country,
+        code
+      };
     },
     countries() {
       return Object.entries(countries).map(([code, country]) => ({
