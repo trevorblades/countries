@@ -1,23 +1,12 @@
 name: Node CI
-
 on: [push]
-
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node: [10]
-
     steps:
     - uses: actions/checkout@v1
-    - name: Use Node.js ${{ matrix.node }}
-      uses: actions/setup-node@v1
+    - uses: actions/setup-node@v1
       with:
-        node-version: ${{ matrix.node }}
-    - name: npm install and test
-      run: |
-        npm install
-        npm test
+        node-version: 12
+    - run: npm install
+    - run: npm test
