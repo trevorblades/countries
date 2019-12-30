@@ -57,6 +57,7 @@ Check out [the playground](https://countries.trevorblades.com) to explore the sc
 - [React Native](https://github.com/muhzi4u/country-directory-app)
 - [ReasonML](https://medium.com/@idkjs/reasonml-and-graphql-without-graphql-part-1-192c2e9e349c)
 - [Country quiz app](https://github.com/byrichardpowell/Country-Quiz) (React, TypeScript)
+- [Python](./examples/python)
 
 ## License
 
