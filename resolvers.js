@@ -1,3 +1,4 @@
+import provinces from 'provinces';
 import {continents, countries, languages} from 'countries-list';
 
 export default {
@@ -8,20 +9,31 @@ export default {
         name: continents[continent]
       };
     },
-    languages(parent) {
-      return parent.languages.map(code => {
+    languages(country) {
+      return country.languages.map(code => {
         const language = languages[code];
         return {
           ...language,
           code
         };
       });
+    },
+    states(country) {
+      return provinces.filter(province => province.country === country.code);
+    }
+  },
+  State: {
+    code(state) {
+      return state.short;
+    },
+    country(state) {
+      return countries[state.country];
     }
   },
   Continent: {
-    countries(parent) {
+    countries(continent) {
       return Object.entries(countries)
-        .filter(entry => entry[1].continent === parent.code)
+        .filter(entry => entry[1].continent === continent.code)
         .map(([code, country]) => ({
           ...country,
           code
