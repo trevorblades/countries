@@ -17,6 +17,13 @@ export default gql`
     languages: [Language]
     emoji: String
     emojiU: String
+    states: [State]
+  }
+
+  type State {
+    code: String
+    name: String
+    country: Country
   }
 
   type Language {

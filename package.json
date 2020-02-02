@@ -14,7 +14,8 @@
     "apollo-server": "^2.7.0",
     "countries-list": "^2.4.3",
     "esm": "^3.2.25",
-    "graphql": "^14.4.2"
+    "graphql": "^14.4.2",
+    "provinces": "^1.11.0"
   },
   "devDependencies": {
     "@trevorblades/eslint-config": "^7.0.1",
