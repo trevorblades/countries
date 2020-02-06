@@ -9,7 +9,6 @@
   "dependencies": {
     "apollo-server-lambda": "^2.10.0",
     "countries-list": "^2.4.3",
-    "esm": "^3.2.25",
     "graphql": "^14.6.0",
     "provinces": "^1.11.0"
   },
