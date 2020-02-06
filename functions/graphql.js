@@ -1,7 +1,51 @@
-import provinces from 'provinces';
-import {continents, countries, languages} from 'countries-list';
+const provinces = require('provinces');
+const {ApolloServer, gql} = require('apollo-server-lambda');
+const {continents, countries, languages} = require('countries-list');
 
-export default {
+const typeDefs = gql`
+  type Continent {
+    code: String
+    name: String
+    countries: [Country]
+  }
+
+  type Country {
+    code: String
+    name: String
+    native: String
+    phone: String
+    continent: Continent
+    currency: String
+    languages: [Language]
+    emoji: String
+    emojiU: String
+    states: [State]
+  }
+
+  type State {
+    code: String
+    name: String
+    country: Country
+  }
+
+  type Language {
+    code: String
+    name: String
+    native: String
+    rtl: Int
+  }
+
+  type Query {
+    continents: [Continent]
+    continent(code: String): Continent
+    countries: [Country]
+    country(code: String): Country
+    languages: [Language]
+    language(code: String): Language
+  }
+`;
+
+const resolvers = {
   Country: {
     continent({continent}) {
       return {
@@ -81,3 +125,15 @@ export default {
     }
   }
 };
+
+const server = new ApolloServer({
+  typeDefs,
+  resolvers,
+  introspection: true,
+  playground: true,
+  engine: {
+    apiKey: process.env.ENGINE_API_KEY
+  }
+});
+
+exports.handler = server.createHandler();
