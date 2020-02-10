@@ -1,27 +1,21 @@
 {
-  "engines": {
-    "node": "10"
-  },
   "scripts": {
-    "pretest": "eslint index.js",
-    "test": "echo \"Error: no test specified\" && exit",
-    "start": "nodemon -r dotenv/config -r esm index.js"
+    "pretest": "eslint functions",
+    "test": "echo \"Error: no test specified\" && exit"
   },
   "eslintConfig": {
     "extends": "@trevorblades"
   },
   "dependencies": {
-    "apollo-server": "^2.7.0",
+    "apollo-server-lambda": "^2.10.0",
     "countries-list": "^2.4.3",
-    "esm": "^3.2.25",
-    "graphql": "^14.4.2",
+    "graphql": "^14.6.0",
     "provinces": "^1.11.0"
   },
   "devDependencies": {
     "@trevorblades/eslint-config": "^7.0.1",
     "apollo": "^2.16.0",
-    "dotenv": "^6.1.0",
     "eslint": "^6.2.1",
-    "nodemon": "^1.18.7"
+    "noop-cli": "^1.0.0"
   }
 }
