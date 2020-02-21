@@ -4,6 +4,7 @@
 
 [![Build Status](https://github.com/trevorblades/countries/workflows/Node%20CI/badge.svg)](https://github.com/trevorblades/countries/actions)
 [![Netlify Status](https://api.netlify.com/api/v1/badges/ff825b5e-72a5-4647-885f-38ca45adb55d/deploy-status)](https://app.netlify.com/sites/unruffled-shaw-bb9a4f/deploys)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
 A public GraphQL API for information about countries, continents, and languages. This project uses [Countries List](https://annexare.github.io/Countries/) as a data source, so the schema follows the shape of that data, with a few exceptions:
 
