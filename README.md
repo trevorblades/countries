@@ -63,4 +63,4 @@ Check out [the playground](https://countries.trevorblades.com) to explore the sc
 
 [MIT](./LICENSE)
 
-[![Deployed by Netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://www.netlify.com)
+[![Deploys by Netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://www.netlify.com)
