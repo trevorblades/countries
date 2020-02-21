@@ -61,3 +61,5 @@ Check out [the playground](https://countries.trevorblades.com) to explore the sc
 ## License
 
 [MIT](./LICENSE)
+
+[![Deployed by Netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://www.netlify.com)
