@@ -1,5 +1,6 @@
 {
   "scripts": {
+    "start": "nodemon index.js",
     "pretest": "eslint functions",
     "test": "echo \"Error: no test specified\" && exit"
   },
@@ -7,7 +8,7 @@
     "extends": "@trevorblades"
   },
   "dependencies": {
-    "apollo-server-lambda": "^2.10.0",
+    "apollo-server": "^2.10.1",
     "countries-list": "^2.4.3",
     "graphql": "^14.6.0",
     "provinces": "^1.11.0"
@@ -16,6 +17,6 @@
     "@trevorblades/eslint-config": "^7.0.1",
     "apollo": "^2.16.0",
     "eslint": "^6.2.1",
-    "noop-cli": "^1.0.0"
+    "nodemon": "^2.0.2"
   }
 }
