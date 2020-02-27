@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "start": "nodemon index.js",
+    "start": "nodemon -r dotenv/config index.js",
     "pretest": "eslint functions",
     "test": "echo \"Error: no test specified\" && exit"
   },
@@ -16,6 +16,7 @@
   "devDependencies": {
     "@trevorblades/eslint-config": "^7.0.1",
     "apollo": "^2.16.0",
+    "dotenv": "^8.2.0",
     "eslint": "^6.2.1",
     "nodemon": "^2.0.2"
   }
