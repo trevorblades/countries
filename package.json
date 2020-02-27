@@ -1,13 +1,14 @@
 {
   "scripts": {
-    "pretest": "eslint functions",
+    "start": "nodemon -r dotenv/config index.js",
+    "pretest": "eslint index.js apollo.config.js",
     "test": "echo \"Error: no test specified\" && exit"
   },
   "eslintConfig": {
     "extends": "@trevorblades"
   },
   "dependencies": {
-    "apollo-server-lambda": "^2.10.0",
+    "apollo-server": "^2.10.1",
     "countries-list": "^2.4.3",
     "graphql": "^14.6.0",
     "provinces": "^1.11.0"
@@ -15,7 +16,8 @@
   "devDependencies": {
     "@trevorblades/eslint-config": "^7.0.1",
     "apollo": "^2.16.0",
+    "dotenv": "^8.2.0",
     "eslint": "^6.2.1",
-    "noop-cli": "^1.0.0"
+    "nodemon": "^2.0.2"
   }
 }

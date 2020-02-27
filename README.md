@@ -3,13 +3,13 @@
 # Countries GraphQL API
 
 [![Build Status](https://github.com/trevorblades/countries/workflows/Node%20CI/badge.svg)](https://github.com/trevorblades/countries/actions)
-[![Netlify Status](https://api.netlify.com/api/v1/badges/3c699c2c-545e-47f2-891e-efbc01841b64/deploy-status)](https://app.netlify.com/sites/wonderful-bartik-c66edf/deploys)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
 
-A public GraphQL API for information about countries, continents, and languages. This project uses [Countries List](https://annexare.github.io/Countries/) as a data source, so the schema follows the shape of that data, with a few exceptions:
+A public GraphQL API for information about countries, continents, and languages. This project uses [Countries List](https://annexare.github.io/Countries/) and [`provinces`](https://github.com/substack/provinces) as data sources, so the schema follows the shape of that data, with a few exceptions:
 
 1. The codes used to key the objects in the original data are available as a `code` property on each item returned from the API.
 2. The `continent` and `languages` properties are now objects and arrays of objects, respectively.
+3. Each `Country` has an array of `states` populated by their states/provinces, if any.
 
 ## Writing queries
 
@@ -62,5 +62,3 @@ Check out [the playground](https://countries.trevorblades.com) to explore the sc
 ## License
 
 [MIT](./LICENSE)
-
-[![Deploys by Netlify](https://www.netlify.com/img/global/badges/netlify-color-accent.svg)](https://www.netlify.com)

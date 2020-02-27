@@ -1,5 +1,5 @@
 const provinces = require('provinces');
-const {ApolloServer, gql} = require('apollo-server-lambda');
+const {ApolloServer, gql} = require('apollo-server');
 const {continents, countries, languages} = require('countries-list');
 
 const typeDefs = gql`
@@ -136,8 +136,6 @@ const server = new ApolloServer({
   }
 });
 
-exports.handler = server.createHandler({
-  cors: {
-    origin: '*'
-  }
+server.listen({port: process.env.PORT}).then(({url}) => {
+  console.log(`🚀  Server ready at ${url}`);
 });
