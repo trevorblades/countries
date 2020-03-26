@@ -44,7 +44,7 @@ const typeDefs = gql`
     code: LanguageCode
     name: String
     native: String
-    rtl: Int
+    rtl: Boolean
   }
 
   type Query {
@@ -94,6 +94,11 @@ const resolvers = {
           ...country,
           code
         }));
+    }
+  },
+  Language: {
+    rtl(language) {
+      return Boolean(language.rtl);
     }
   },
   Query: {
