@@ -37,11 +37,11 @@ const typeDefs = gql`
 
   type Query {
     continents: [Continent]
-    continent(code: String): Continent
+    continent(code: String!): Continent
     countries: [Country]
-    country(code: String): Country
+    country(code: String!): Country
     languages: [Language]
-    language(code: String): Language
+    language(code: String!): Language
   }
 `;
 
