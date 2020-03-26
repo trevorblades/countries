@@ -3,14 +3,26 @@ const {ApolloServer, gql} = require('apollo-server');
 const {continents, countries, languages} = require('countries-list');
 
 const typeDefs = gql`
+  enum ContinentCode {
+    ${Object.keys(continents)}
+  }
+
+  enum CountryCode {
+    ${Object.keys(countries)}
+  }
+
+  enum LanguageCode {
+    ${Object.keys(languages)}
+  }
+
   type Continent {
-    code: String
+    code: ContinentCode
     name: String
     countries: [Country]
   }
 
   type Country {
-    code: String
+    code: CountryCode
     name: String
     native: String
     phone: String
@@ -29,7 +41,7 @@ const typeDefs = gql`
   }
 
   type Language {
-    code: String
+    code: LanguageCode
     name: String
     native: String
     rtl: Int
@@ -37,11 +49,11 @@ const typeDefs = gql`
 
   type Query {
     continents: [Continent]
-    continent(code: String!): Continent
+    continent(code: ContinentCode!): Continent
     countries: [Country]
-    country(code: String!): Country
+    country(code: CountryCode!): Country
     languages: [Language]
-    language(code: String!): Language
+    language(code: LanguageCode!): Language
   }
 `;
 
