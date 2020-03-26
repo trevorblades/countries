@@ -1,7 +1,7 @@
 {
   "scripts": {
-    "start": "nodemon -r dotenv/config index.js",
-    "pretest": "eslint index.js apollo.config.js",
+    "start": "nodemon index.js",
+    "pretest": "eslint index.js",
     "test": "echo \"Error: no test specified\" && exit"
   },
   "eslintConfig": {
