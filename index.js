@@ -4,44 +4,45 @@ const {continents, countries, languages} = require('countries-list');
 
 const typeDefs = gql`
   type Continent {
-    code: String
-    name: String
-    countries: [Country]
+    code: ID!
+    name: String!
+    countries: [Country!]!
   }
 
   type Country {
-    code: String
-    name: String
-    native: String
-    phone: String
-    continent: Continent
-    currency: String
-    languages: [Language]
-    emoji: String
-    emojiU: String
-    states: [State]
+    code: ID!
+    name: String!
+    native: String!
+    phone: String!
+    continent: Continent!
+    capital: String!
+    currency: String!
+    languages: [Language!]!
+    emoji: String!
+    emojiU: String!
+    states: [State!]!
   }
 
   type State {
     code: String
-    name: String
-    country: Country
+    name: String!
+    country: Country!
   }
 
   type Language {
-    code: String
+    code: ID!
     name: String
     native: String
-    rtl: Int
+    rtl: Boolean!
   }
 
   type Query {
-    continents: [Continent]
-    continent(code: String!): Continent
-    countries: [Country]
-    country(code: String!): Country
-    languages: [Language]
-    language(code: String!): Language
+    continents: [Continent!]!
+    continent(code: ID!): Continent
+    countries: [Country!]!
+    country(code: ID!): Country
+    languages: [Language!]!
+    language(code: ID!): Language
   }
 `;
 
@@ -84,12 +85,20 @@ const resolvers = {
         }));
     }
   },
+  Language: {
+    rtl(language) {
+      return Boolean(language.rtl);
+    }
+  },
   Query: {
     continent(parent, {code}) {
-      return {
-        code,
-        name: continents[code]
-      };
+      const name = continents[code];
+      return (
+        name && {
+          code,
+          name
+        }
+      );
     },
     continents() {
       return Object.entries(continents).map(([code, name]) => ({
@@ -99,10 +108,12 @@ const resolvers = {
     },
     country(parent, {code}) {
       const country = countries[code];
-      return {
-        ...country,
-        code
-      };
+      return (
+        country && {
+          ...country,
+          code
+        }
+      );
     },
     countries() {
       return Object.entries(countries).map(([code, country]) => ({
@@ -112,10 +123,12 @@ const resolvers = {
     },
     language(parent, {code}) {
       const language = languages[code];
-      return {
-        ...language,
-        code
-      };
+      return (
+        language && {
+          ...language,
+          code
+        }
+      );
     },
     languages() {
       return Object.entries(languages).map(([code, language]) => ({
@@ -136,6 +149,6 @@ const server = new ApolloServer({
   }
 });
 
-server.listen({port: process.env.PORT}).then(({url}) => {
+server.listen({port: process.env.PORT || 4000}).then(({url}) => {
   console.log(`🚀  Server ready at ${url}`);
 });
