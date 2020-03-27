@@ -19,7 +19,6 @@ A public GraphQL API for information about countries, continents, and languages.
 3. Each `Country` has an array of `states` populated by their states/provinces, if any.
 
 - [Writing queries](#writing-queries)
-  - [Migration notes (pre-March 2020)](#migration-notes-pre-march-2020)
 - [Docs](#docs)
 - [Examples](#examples)
 - [License](#license)
@@ -28,7 +27,7 @@ A public GraphQL API for information about countries, continents, and languages.
 
 ```graphql
 {
-  country(code: BR) {
+  country(code: "BR") {
     name
     native
     capital
@@ -60,20 +59,6 @@ The above GraphQL query will produce the following JSON response:
         }
       ]
     }
-  }
-}
-```
-
-### Migration notes (pre-March 2020)
-
-In the first version of this API, `code` arguments were treated as `String`s. Now, they are enums of valid options only. To migrate, simply remove the double quotes from your existing code arguments:
-
-```diff
-{
-- country(code: "CA") {
-+ country(code: CA) {
-    name
-    emoji
   }
 }
 ```

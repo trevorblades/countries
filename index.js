@@ -3,26 +3,14 @@ const {ApolloServer, gql} = require('apollo-server');
 const {continents, countries, languages} = require('countries-list');
 
 const typeDefs = gql`
-  enum ContinentCode {
-    ${Object.keys(continents)}
-  }
-
-  enum CountryCode {
-    ${Object.keys(countries)}
-  }
-
-  enum LanguageCode {
-    ${Object.keys(languages)}
-  }
-
   type Continent {
-    code: ContinentCode!
+    code: ID!
     name: String!
     countries: [Country!]!
   }
 
   type Country {
-    code: CountryCode!
+    code: ID!
     name: String!
     native: String!
     phone: String!
@@ -42,7 +30,7 @@ const typeDefs = gql`
   }
 
   type Language {
-    code: LanguageCode!
+    code: ID!
     name: String
     native: String
     rtl: Boolean!
@@ -50,11 +38,11 @@ const typeDefs = gql`
 
   type Query {
     continents: [Continent!]!
-    continent(code: ContinentCode!): Continent!
+    continent(code: ID!): Continent
     countries: [Country!]!
-    country(code: CountryCode!): Country!
+    country(code: ID!): Country
     languages: [Language!]!
-    language(code: LanguageCode!): Language!
+    language(code: ID!): Language
   }
 `;
 
@@ -104,10 +92,13 @@ const resolvers = {
   },
   Query: {
     continent(parent, {code}) {
-      return {
-        code,
-        name: continents[code]
-      };
+      const name = continents[code];
+      return (
+        name && {
+          code,
+          name
+        }
+      );
     },
     continents() {
       return Object.entries(continents).map(([code, name]) => ({
@@ -117,10 +108,12 @@ const resolvers = {
     },
     country(parent, {code}) {
       const country = countries[code];
-      return {
-        ...country,
-        code
-      };
+      return (
+        country && {
+          ...country,
+          code
+        }
+      );
     },
     countries() {
       return Object.entries(countries).map(([code, country]) => ({
@@ -130,10 +123,12 @@ const resolvers = {
     },
     language(parent, {code}) {
       const language = languages[code];
-      return {
-        ...language,
-        code
-      };
+      return (
+        language && {
+          ...language,
+          code
+        }
+      );
     },
     languages() {
       return Object.entries(languages).map(([code, language]) => ({
