@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "apollo-server": "^2.10.1",
-    "countries-list": "^2.4.3",
+    "countries-list": "^2.5.4",
     "graphql": "^14.6.0",
     "provinces": "^1.11.0"
   },
