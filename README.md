@@ -8,6 +8,7 @@
 
 [![Build Status](https://github.com/trevorblades/countries/workflows/Node%20CI/badge.svg)](https://github.com/trevorblades/countries/actions)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](CODE_OF_CONDUCT.md)
+[![Twitter Follow](https://img.shields.io/twitter/follow/trevorblades?style=social)](https://twitter.com/trevorblades)
 
 </div>
 
