@@ -18,11 +18,6 @@ A public GraphQL API for information about countries, continents, and languages.
 2. The `country.continent` and `country.languages` are now objects and arrays of objects, respectively.
 3. Each `Country` has an array of `states` populated by their states/provinces, if any.
 
-- [Writing queries](#writing-queries)
-- [Docs](#docs)
-- [Examples](#examples)
-- [License](#license)
-
 ## Writing queries
 
 ```graphql
