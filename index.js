@@ -27,6 +27,7 @@ const typeDefs = gql`
     native: String!
     phone: String!
     continent: Continent!
+    capital: String!
     currency: String!
     languages: [Language!]!
     emoji: String!

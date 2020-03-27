@@ -31,6 +31,7 @@ A public GraphQL API for information about countries, continents, and languages.
   country(code: BR) {
     name
     native
+    capital
     emoji
     currency
     languages {
@@ -49,6 +50,7 @@ The above GraphQL query will produce the following JSON response:
     "country": {
       "name": "Brazil",
       "native": "Brasil",
+      "capital": "Brasília",
       "emoji": "🇧🇷",
       "currency": "BRL",
       "languages": [
