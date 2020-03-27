@@ -18,11 +18,15 @@ A public GraphQL API for information about countries, continents, and languages.
 2. The `country.continent` and `country.languages` are now objects and arrays of objects, respectively.
 3. Each `Country` has an array of `states` populated by their states/provinces, if any.
 
+- [Docs](#docs)
 - [Writing queries](#writing-queries)
   - [Migration notes (pre-March 2020)](#migration-notes-pre-march-2020)
-- [Docs](#docs)
 - [Examples](#examples)
 - [License](#license)
+
+## Docs
+
+Check out [the playground](https://countries.trevorblades.com) to explore the schema and test out some queries.
 
 ## Writing queries
 
@@ -75,10 +79,6 @@ In the first version of this API, `code` arguments were treated as `String`s. No
   }
 }
 ```
-
-## Docs
-
-Check out [the playground](https://countries.trevorblades.com) to explore the schema and test out some queries.
 
 ## Examples
 
