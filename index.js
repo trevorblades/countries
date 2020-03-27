@@ -50,47 +50,36 @@ const resolvers = {
   Country: {
     capital: country => country.capital || null,
     currency: country => country.currency || null,
-    continent({continent}) {
-      return {
-        code: continent,
-        name: continents[continent]
-      };
-    },
-    languages(country) {
-      return country.languages.map(code => {
+    continent: ({continent}) => ({
+      code: continent,
+      name: continents[continent]
+    }),
+    languages: country =>
+      country.languages.map(code => {
         const language = languages[code];
         return {
           ...language,
           code
         };
-      });
-    },
-    states(country) {
-      return provinces.filter(province => province.country === country.code);
-    }
+      }),
+    states: country =>
+      provinces.filter(province => province.country === country.code)
   },
   State: {
-    code(state) {
-      return state.short;
-    },
-    country(state) {
-      return countries[state.country];
-    }
+    code: state => state.short,
+    country: state => countries[state.country]
   },
   Continent: {
-    countries(continent) {
-      return Object.entries(countries)
+    countries: continent =>
+      Object.entries(countries)
         .filter(entry => entry[1].continent === continent.code)
         .map(([code, country]) => ({
           ...country,
           code
-        }));
-    }
+        }))
   },
   Language: {
-    rtl(language) {
-      return Boolean(language.rtl);
-    }
+    rtl: language => Boolean(language.rtl)
   },
   Query: {
     continent(parent, {code}) {
@@ -102,12 +91,11 @@ const resolvers = {
         }
       );
     },
-    continents() {
-      return Object.entries(continents).map(([code, name]) => ({
+    continents: () =>
+      Object.entries(continents).map(([code, name]) => ({
         code,
         name
-      }));
-    },
+      })),
     country(parent, {code}) {
       const country = countries[code];
       return (
@@ -117,12 +105,11 @@ const resolvers = {
         }
       );
     },
-    countries() {
-      return Object.entries(countries).map(([code, country]) => ({
+    countries: () =>
+      Object.entries(countries).map(([code, country]) => ({
         ...country,
         code
-      }));
-    },
+      })),
     language(parent, {code}) {
       const language = languages[code];
       return (
@@ -132,12 +119,11 @@ const resolvers = {
         }
       );
     },
-    languages() {
-      return Object.entries(languages).map(([code, language]) => ({
+    languages: () =>
+      Object.entries(languages).map(([code, language]) => ({
         ...language,
         code
-      }));
-    }
+      }))
   }
 };
 
