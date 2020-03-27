@@ -16,44 +16,44 @@ const typeDefs = gql`
   }
 
   type Continent {
-    code: ContinentCode
-    name: String
-    countries: [Country]
+    code: ContinentCode!
+    name: String!
+    countries: [Country!]!
   }
 
   type Country {
-    code: CountryCode
-    name: String
-    native: String
-    phone: String
-    continent: Continent
-    currency: String
-    languages: [Language]
-    emoji: String
-    emojiU: String
-    states: [State]
+    code: CountryCode!
+    name: String!
+    native: String!
+    phone: String!
+    continent: Continent!
+    currency: String!
+    languages: [Language!]!
+    emoji: String!
+    emojiU: String!
+    states: [State!]!
   }
 
   type State {
     code: String
-    name: String
-    country: Country
+    name: String!
+    country: Country!
   }
 
   type Language {
-    code: LanguageCode
+    code: LanguageCode!
     name: String
     native: String
-    rtl: Boolean
+    rtl: Boolean!
   }
 
   type Query {
-    continents: [Continent]
-    continent(code: ContinentCode!): Continent
-    countries: [Country]
-    country(code: CountryCode!): Country
-    languages: [Language]
-    language(code: LanguageCode!): Language
+    continents: [Continent!]!
+    continent(code: ContinentCode!): Continent!
+    countries: [Country!]!
+    country(code: CountryCode!): Country!
+    languages: [Language!]!
+    language(code: LanguageCode!): Language!
   }
 `;
 
@@ -153,6 +153,6 @@ const server = new ApolloServer({
   }
 });
 
-server.listen({port: process.env.PORT}).then(({url}) => {
+server.listen({port: process.env.PORT || 4000}).then(({url}) => {
   console.log(`🚀  Server ready at ${url}`);
 });
