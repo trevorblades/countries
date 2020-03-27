@@ -15,8 +15,8 @@ const typeDefs = gql`
     native: String!
     phone: String!
     continent: Continent!
-    capital: String!
-    currency: String!
+    capital: String
+    currency: String
     languages: [Language!]!
     emoji: String!
     emojiU: String!
@@ -48,6 +48,8 @@ const typeDefs = gql`
 
 const resolvers = {
   Country: {
+    capital: country => country.capital || null,
+    currency: country => country.currency || null,
     continent({continent}) {
       return {
         code: continent,
