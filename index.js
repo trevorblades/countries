@@ -1,3 +1,4 @@
+const sift = require('sift');
 const provinces = require('provinces');
 const {ApolloServer, gql} = require('apollo-server');
 const {continents, countries, languages} = require('countries-list');
@@ -36,15 +37,50 @@ const typeDefs = gql`
     rtl: Boolean!
   }
 
+  input CountryFilterInput {
+    code: StringQueryOperatorInput
+    currency: StringQueryOperatorInput
+    continent: StringQueryOperatorInput
+  }
+
+  input StringQueryOperatorInput {
+    eq: String
+    ne: String
+    in: [String]
+    nin: [String]
+    regex: String
+    glob: String
+  }
+
   type Query {
     continents: [Continent!]!
     continent(code: ID!): Continent
-    countries: [Country!]!
+    countries(filter: CountryFilterInput): [Country!]!
     country(code: ID!): Country
     languages: [Language!]!
     language(code: ID!): Language
   }
 `;
+
+function siftifyFilter(filter) {
+  return Object.entries(filter).reduce(
+    (acc, [key, operators]) => ({
+      ...acc,
+      [key]: siftifyOperators(operators)
+    }),
+    {}
+  );
+}
+
+function siftifyOperators(operators) {
+  return Object.entries(operators).reduce(
+    (acc, [operator, value]) => ({
+      ...acc,
+      ['$' + operator]: value
+    }),
+    {}
+  );
+}
 
 const resolvers = {
   Country: {
@@ -105,11 +141,13 @@ const resolvers = {
         }
       );
     },
-    countries: () =>
-      Object.entries(countries).map(([code, country]) => ({
-        ...country,
-        code
-      })),
+    countries: (parent, {filter = {}}) =>
+      Object.entries(countries)
+        .map(([code, country]) => ({
+          ...country,
+          code
+        }))
+        .filter(sift(siftifyFilter(filter))),
     language(parent, {code}) {
       const language = languages[code];
       return (
