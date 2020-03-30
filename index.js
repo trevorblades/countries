@@ -37,12 +37,6 @@ const typeDefs = gql`
     rtl: Boolean!
   }
 
-  input CountryFilterInput {
-    code: StringQueryOperatorInput
-    currency: StringQueryOperatorInput
-    continent: StringQueryOperatorInput
-  }
-
   input StringQueryOperatorInput {
     eq: String
     ne: String
@@ -52,27 +46,43 @@ const typeDefs = gql`
     glob: String
   }
 
+  input CountryFilterInput {
+    code: StringQueryOperatorInput
+    currency: StringQueryOperatorInput
+    continent: StringQueryOperatorInput
+  }
+
+  input ContinentFilterInput {
+    code: StringQueryOperatorInput
+  }
+
+  input LanguageFilterInput {
+    code: StringQueryOperatorInput
+  }
+
   type Query {
-    continents: [Continent!]!
+    continents(filter: ContinentFilterInput): [Continent!]!
     continent(code: ID!): Continent
     countries(filter: CountryFilterInput): [Country!]!
     country(code: ID!): Country
-    languages: [Language!]!
+    languages(filter: LanguageFilterInput): [Language!]!
     language(code: ID!): Language
   }
 `;
 
-function siftifyFilter(filter) {
-  return Object.entries(filter).reduce(
-    (acc, [key, operators]) => ({
-      ...acc,
-      [key]: siftifyOperators(operators)
-    }),
-    {}
+function filterToSift(filter = {}) {
+  return sift(
+    Object.entries(filter).reduce(
+      (acc, [key, operators]) => ({
+        ...acc,
+        [key]: operatorsToSift(operators)
+      }),
+      {}
+    )
   );
 }
 
-function siftifyOperators(operators) {
+function operatorsToSift(operators) {
   return Object.entries(operators).reduce(
     (acc, [operator, value]) => ({
       ...acc,
@@ -127,11 +137,13 @@ const resolvers = {
         }
       );
     },
-    continents: () =>
-      Object.entries(continents).map(([code, name]) => ({
-        code,
-        name
-      })),
+    continents: (parent, {filter}) =>
+      Object.entries(continents)
+        .map(([code, name]) => ({
+          code,
+          name
+        }))
+        .filter(filterToSift(filter)),
     country(parent, {code}) {
       const country = countries[code];
       return (
@@ -141,13 +153,13 @@ const resolvers = {
         }
       );
     },
-    countries: (parent, {filter = {}}) =>
+    countries: (parent, {filter}) =>
       Object.entries(countries)
         .map(([code, country]) => ({
           ...country,
           code
         }))
-        .filter(sift(siftifyFilter(filter))),
+        .filter(filterToSift(filter)),
     language(parent, {code}) {
       const language = languages[code];
       return (
@@ -157,11 +169,13 @@ const resolvers = {
         }
       );
     },
-    languages: () =>
-      Object.entries(languages).map(([code, language]) => ({
-        ...language,
-        code
-      }))
+    languages: (parent, {filter}) =>
+      Object.entries(languages)
+        .map(([code, language]) => ({
+          ...language,
+          code
+        }))
+        .filter(filterToSift(filter))
   }
 };
 
