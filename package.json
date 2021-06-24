@@ -8,7 +8,7 @@
     "extends": "@trevorblades"
   },
   "dependencies": {
-    "apollo-server": "^2.14.2",
+    "apollo-server-micro": "^2.25.2",
     "countries-list": "^2.5.4",
     "graphql": "^14.6.0",
     "provinces": "^1.11.0",
