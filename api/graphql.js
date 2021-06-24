@@ -183,10 +183,7 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   introspection: true,
-  playground: true,
-  engine: {
-    apiKey: process.env.ENGINE_API_KEY
-  }
+  playground: true
 });
 
 export default server.createHandler({
