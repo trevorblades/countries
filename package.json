@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "start": "nodemon index.js",
-    "pretest": "eslint index.js",
+    "pretest": "eslint api",
     "test": "echo \"Error: no test specified\" && exit"
   },
   "eslintConfig": {
