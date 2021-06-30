@@ -1,13 +1,14 @@
 {
   "scripts": {
-    "pretest": "eslint api",
+    "start": "nodemon index.js",
+    "pretest": "eslint index.js",
     "test": "echo \"Error: no test specified\" && exit"
   },
   "eslintConfig": {
     "extends": "@trevorblades"
   },
   "dependencies": {
-    "apollo-server-micro": "^2.25.2",
+    "apollo-server": "^2.14.2",
     "countries-list": "^2.5.4",
     "graphql": "^14.6.0",
     "provinces": "^1.11.0",

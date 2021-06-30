@@ -1,7 +1,7 @@
-import provinces from 'provinces';
-import sift from 'sift';
-import {ApolloServer, gql} from 'apollo-server-micro';
-import {continents, countries, languages} from 'countries-list';
+const sift = require('sift');
+const provinces = require('provinces');
+const {ApolloServer, gql} = require('apollo-server');
+const {continents, countries, languages} = require('countries-list');
 
 const typeDefs = gql`
   type Continent {
@@ -183,15 +183,12 @@ const server = new ApolloServer({
   typeDefs,
   resolvers,
   introspection: true,
-  playground: true
-});
-
-export default server.createHandler({
-  path: '/api/graphql'
-});
-
-export const config = {
-  api: {
-    bodyParser: false
+  playground: true,
+  engine: {
+    apiKey: process.env.ENGINE_API_KEY
   }
-};
+});
+
+server.listen({port: process.env.PORT || 4000}).then(({url}) => {
+  console.log(`🚀  Server ready at ${url}`);
+});
