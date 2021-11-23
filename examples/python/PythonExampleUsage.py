@@ -1,9 +1,8 @@
-import requests, json
+import requests
 
-FETCH_COUNT = 50
-URL = "https://countries.trevorblades.com"
+url = "https://countries.trevorblades.com"
 
-query = """
+json = {'query': '''
 {
   country(code: "BR") {
     name
@@ -16,18 +15,7 @@ query = """
     }
   }
 }
-"""
+'''}
 
-
-def get_country_data(arguments='{}'):
-    arguments = dict(query=arguments)  # wrap query in dictionary
-
-    graph_ql_request = requests.post(URL,
-                                     data=json.dumps(arguments),
-                                     headers={"Content-type": "application/json"})
-
-    country_data = graph_ql_request.json()
-    return country_data
-
-
-print(get_country_data(arguments=query))
+r = requests.post(url, json=json)
+print(r.json())
