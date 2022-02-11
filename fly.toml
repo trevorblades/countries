@@ -1,0 +1,13 @@
+app = "empty-cherry-6843"
+
+[build]
+  builder = "heroku/buildpacks:20"
+
+[env]
+  PORT = 8080
+  APOLLO_GRAPH_REF = "Countries-gxmwa8@current"
+  APOLLO_SCHEMA_REPORTING = true
+
+[[services]]
+  internal_port = 8080
+  protocol = "tcp"
