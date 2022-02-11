@@ -4,11 +4,12 @@
     "pretest": "eslint index.js",
     "test": "echo \"Error: no test specified\" && exit"
   },
+  "type": "module",
   "eslintConfig": {
     "extends": "@trevorblades"
   },
   "dependencies": {
-    "apollo-server": "^2.14.2",
+    "apollo-server": "^2.25.3",
     "countries-list": "^2.5.4",
     "graphql": "^14.6.0",
     "provinces": "^1.11.0",
