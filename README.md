@@ -70,6 +70,7 @@ Check out [the playground](https://countries.trevorblades.com) to explore the sc
 - [Country quiz app](https://github.com/byrichardpowell/Country-Quiz) (React, TypeScript)
 - [Python](./examples/python)
 - [Seed](https://github.com/seed-rs/seed/tree/master/examples/graphql)
+- [Country Searcher](https://github.com/FranP-code/country-searcher)
 
 ## License
 
