@@ -2,7 +2,8 @@
   "scripts": {
     "start": "nodemon index.js",
     "pretest": "eslint index.js",
-    "test": "echo \"Error: no test specified\" && exit"
+    "test": "echo \"Error: no test specified\" && exit",
+    "fix": "eslint --fix ."
   },
   "type": "module",
   "eslintConfig": {
