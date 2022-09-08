@@ -1,13 +1,13 @@
 import countriesList from "countries-list";
 import fs from "fs";
-import path, { dirname } from "path";
+import path from "path";
 import provinces from "provinces";
 import sift from "sift";
 import { fileURLToPath } from "url";
 import { gql } from "apollo-server";
 
 const schema = fs.readFileSync(
-  path.join(dirname(fileURLToPath(import.meta.url)), "./schema.graphqls"),
+  path.join(path.dirname(fileURLToPath(import.meta.url)), "./schema.graphqls"),
   "utf8"
 );
 
