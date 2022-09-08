@@ -3,8 +3,8 @@ import fs from "fs";
 import path from "path";
 import provinces from "provinces";
 import sift from "sift";
-import { gql } from "apollo-server";
 import { fileURLToPath } from "url";
+import { gql } from "apollo-server";
 
 const schema = fs.readFileSync(
   path.join(path.dirname(fileURLToPath(import.meta.url)), "./schema.graphqls"),
