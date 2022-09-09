@@ -60,7 +60,7 @@ The above GraphQL query will produce the following JSON response:
 
 ## Docs
 
-Check out [the playground](https://countries.trevorblades.com) to explore the schema and test out some queries.
+Read about all of the fields available and view example queries in [the docs](https://trevorblades.github.io/countries). You can also check out [the playground](https://countries.trevorblades.com) to explore the schema and test out some queries.
 
 ## Examples
 
