@@ -16,14 +16,20 @@ $ npm install react react-dom @apollo/client graphql
 ## Build the component
 
 ```js
-import React, {useState} from 'react';
-import ReactDOM from 'react-dom';
-import {ApolloClient, InMemoryCache, gql, useQuery} from '@apollo/client';
+import React, { useEffect, useState } from "react";
+import ReactDOM from "react-dom";
+import {
+  ApolloClient,
+  InMemoryCache,
+  gql,
+  useQuery,
+  useLazyQuery,
+} from "@apollo/client";
 
 // initialize a GraphQL client
 const client = new ApolloClient({
   cache: new InMemoryCache(),
-  uri: 'https://countries.trevorblades.com'
+  uri: "https://countries.trevorblades.com",
 });
 
 // write a GraphQL query that asks for names and codes for all countries
@@ -36,32 +42,128 @@ const LIST_COUNTRIES = gql`
   }
 `;
 
+const COUNTRY_DETAILS = gql`
+  query country($code: ID!) {
+    country(code: $code) {
+      name
+      code
+      currency
+      emoji
+      capital
+      continent {
+        name
+      }
+      phone
+      languages {
+        name
+      }
+    }
+  }
+`;
+
 // create a component that renders a select input for coutries
 function CountrySelect() {
-  const [country, setCountry] = useState('US');
-  const {data, loading, error} = useQuery(LIST_COUNTRIES, {client});
+  const [country, setCountry] = useState("IN");
+  const { data, loading, error } = useQuery(LIST_COUNTRIES, { client });
+  const [
+    getCountryDetails,
+    {
+      loading: loadingCountryDetails,
+      error: errorCountryDetails,
+      data: dataCountryDetails,
+    },
+  ] = useLazyQuery(COUNTRY_DETAILS, { client });
 
-  if (loading || error) {
-    return <p>{error ? error.message : 'Loading...'}</p>;
+  useEffect(() => {
+    // Good!
+    // variables: { breed: 'bulldog' }
+    getCountryDetails({ variables: { code: country } });
+  }, [country, getCountryDetails]);
+
+  if (loading || error || loadingCountryDetails || errorCountryDetails) {
+    return (
+      <p>
+        {error || errorCountryDetails
+          ? error.message || errorCountryDetails.message
+          : "Loading..."}
+      </p>
+    );
   }
 
   return (
-    <select value={country} onChange={event => setCountry(event.target.value)}>
-      {data.countries.map(country => (
-        <option key={country.code} value={country.code}>
-          {country.name}
-        </option>
-      ))}
-    </select>
+    <>
+      <div style={basicStyles.dropDownContainer}>
+        <select
+          value={country}
+          onChange={(event) => setCountry(event.target.value)}
+        >
+          {data.countries.map((country) => (
+            <option key={country.code} value={country.code}>
+              {country.name}
+            </option>
+          ))}
+        </select>
+      </div>
+      {dataCountryDetails && (
+        <div style={basicStyles.countryDetailContainer}>
+          <div>
+            <h3> Country Code: </h3>
+            <span>{dataCountryDetails.country.code}</span>
+          </div>
+          <div>
+            <h3> Flag : </h3>
+            <span>{dataCountryDetails.country.emoji}</span>
+          </div>
+          <div>
+            <h3> Currency : </h3>
+            <span>{dataCountryDetails.country.currency}</span>
+          </div>
+          <div>
+            <h3> Dial Code : </h3>
+            <span>+{dataCountryDetails.country.phone}</span>
+          </div>
+          <div>
+            <h3> Capital : </h3>
+            <span>{dataCountryDetails.country.capital}</span>
+          </div>
+          <div>
+            <h3> Languages : </h3>
+            <span>
+              {dataCountryDetails.country.languages.map((lang, i) =>
+                dataCountryDetails.country.languages.length === i + 1
+                  ? `${lang.name}`
+                  : `${lang.name},`
+              )}
+            </span>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
-ReactDOM.render(<CountrySelect />, document.getElementById('root'));
+ReactDOM.render(<CountrySelect />, document.getElementById("root"));
+
+// basic styling
+const basicStyles = {
+  dropDownContainer: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  countryDetailContainer: {
+    margin: "auto auto",
+    maxWidth: "900px",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+
+    // grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  },
+};
 ```
 
 ## Now you're worldwide! 🌎
 
-[![Edit Countries GraphQL API example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/913llyjylo)
+[![Edit Countries GraphQL API example](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/countries-graphql-api-example-forked-ewxxtt)
 
 Check out the CodeSandbox link above for a complete, working copy of this example. This `CountrySelect` component only fetches its country data when it mounts. That means that if it exists within an unmatched route or the falsey end of a condition, it doesn't request any data.
 
