@@ -13,9 +13,10 @@ This example uses [React](https://reactjs.org/) and [Apollo GraphQL](https://apo
 $ npm install react react-dom @apollo/client graphql
 ```
 
-## Build the component
+## Import the dependencies
 
 ```js
+// We are using apollo client for this exapmle
 import React, { useEffect, useState } from "react";
 import ReactDOM from "react-dom";
 import {
@@ -31,8 +32,12 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   uri: "https://countries.trevorblades.com",
 });
+```
 
-// write a GraphQL query that asks for names and codes for all countries
+## Define the queries/mutations
+
+```js
+// GraphQL query that asks for names and codes for all countries & details of selected country
 const LIST_COUNTRIES = gql`
   {
     countries {
@@ -41,7 +46,7 @@ const LIST_COUNTRIES = gql`
     }
   }
 `;
-
+// GraphQL query that asks for details of a specific country
 const COUNTRY_DETAILS = gql`
   query country($code: ID!) {
     country(code: $code) {
@@ -60,8 +65,30 @@ const COUNTRY_DETAILS = gql`
     }
   }
 `;
+```
 
-// create a component that renders a select input for coutries
+## Define the basic styles
+
+```js
+// basic styling you can use your preferred UI library as well
+const basicStyles = {
+  dropDownContainer: {
+    display: "flex",
+    justifyContent: "center",
+  },
+  countryDetailContainer: {
+    margin: "auto auto",
+    maxWidth: "900px",
+    display: "grid",
+    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
+  },
+};
+```
+
+## Create the component
+
+```js
+// create a component that renders details of selected input from coutries dropdown
 function CountrySelect() {
   const [country, setCountry] = useState("IN");
   const { data, loading, error } = useQuery(LIST_COUNTRIES, { client });
@@ -75,8 +102,6 @@ function CountrySelect() {
   ] = useLazyQuery(COUNTRY_DETAILS, { client });
 
   useEffect(() => {
-    // Good!
-    // variables: { breed: 'bulldog' }
     getCountryDetails({ variables: { code: country } });
   }, [country, getCountryDetails]);
 
@@ -143,22 +168,6 @@ function CountrySelect() {
 }
 
 ReactDOM.render(<CountrySelect />, document.getElementById("root"));
-
-// basic styling
-const basicStyles = {
-  dropDownContainer: {
-    display: "flex",
-    justifyContent: "center",
-  },
-  countryDetailContainer: {
-    margin: "auto auto",
-    maxWidth: "900px",
-    display: "grid",
-    gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))",
-
-    // grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  },
-};
 ```
 
 ## Now you're worldwide! 🌎
