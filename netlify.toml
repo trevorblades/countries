@@ -1,0 +1,3 @@
+[context.production.environment]
+  APOLLO_GRAPH_REF = "Countries-gxmwa8@current"
+  APOLLO_SCHEMA_REPORTING = true

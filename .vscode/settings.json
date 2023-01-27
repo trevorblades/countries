@@ -1,6 +1,7 @@
 {
     "eslint.validate": [
         "javascript",
+        "typescript",
         "graphql"
     ]
 }

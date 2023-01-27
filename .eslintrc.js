@@ -1,11 +1,8 @@
 module.exports = {
   extends: [
-    "plugin:@trevorblades/core",
+    "plugin:@trevorblades/node",
+    "plugin:@trevorblades/typescript",
     "plugin:@trevorblades/graphql",
     "plugin:prettier/recommended",
   ],
-  parserOptions: {
-    ecmaVersion: 2020,
-    sourceType: "module",
-  },
 };
