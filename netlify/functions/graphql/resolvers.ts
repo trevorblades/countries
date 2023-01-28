@@ -1,7 +1,7 @@
 import provinces from "provinces";
 import sift from "sift";
+import { Country, continents, countries, languages } from "countries-list";
 import { Resolvers } from "./resolvers-types";
-import { continents, countries, languages } from "countries-list";
 
 const filterToSift = (filter = {}) =>
   sift(
@@ -23,6 +23,31 @@ function operatorsToSift(operators) {
     {}
   );
 }
+
+class CountryLike {
+  constructor(public code: string, public country: Country) {
+    this.code = code;
+  }
+}
+
+class Continent {
+  constructor(public code: string, public name: string) {
+    this.code = code;
+    this.name = name;
+  }
+
+  get countries() {
+    return Object.entries(countries)
+      .filter(([, country]) => country.continent === this.code)
+      .map(([code, country]) => ({
+        ...country,
+        code,
+      }));
+  }
+}
+
+const countriesMap = new Map(Object.entries(countries));
+const continentsMap = new Map(Object.entries(continents));
 
 export const resolvers: Resolvers = {
   Country: {
@@ -50,49 +75,69 @@ export const resolvers: Resolvers = {
   Continent: {
     countries: (continent) =>
       Object.entries(countries)
-        .filter((entry) => entry[1].continent === continent.code)
+        .filter(([, country]) => country.continent === continent.code)
         .map(([code, country]) => ({
           ...country,
           code,
         })),
   },
   Language: {
-    rtl: (language) => Boolean(language.rtl),
+    rtl: (language) => language.rtl === true,
   },
   Query: {
     continent(_, { code }) {
-      const name = continents[code];
-      return (
-        name && {
-          code,
-          name,
-        }
-      );
+      const name = continentsMap.get(code);
+
+      if (!name) {
+        return null;
+      }
+
+      return {
+        code,
+        name,
+      };
     },
     continents: (_, { filter }) => {
-      return Object.entries(continents)
-        .map(([code, name]) => ({
-          code,
-          name,
-        }))
-        .filter(filterToSift(filter));
+      const data = [...continentsMap].map(([code, name]) => ({
+        code,
+        name,
+      }));
+
+      if (filter?.code) {
+        return data.filter(
+          sift({
+            code: filter.code,
+          })
+        );
+      }
+
+      return data;
     },
     country(_, { code }) {
-      const country = countries[code];
-      return (
-        country && {
-          ...country,
-          code,
-        }
-      );
+      const country = countriesMap.get(code);
+
+      if (!country) {
+        return null;
+      }
+
+      const { continent, languages, ...rest } = country;
+
+      return {
+        ...rest,
+        code,
+      };
     },
-    countries: (_, { filter }) =>
-      Object.entries(countries)
+    countries: (_, { filter }) => {
+      const filterCountries = sift({
+        $in: filter?.code?.in,
+      });
+      return Object.entries(countries)
         .map(([code, country]) => ({
           ...country,
           code,
         }))
-        .filter(filterToSift(filter)),
+        .filter(filterToSift(filter));
+    },
     language(_, { code }) {
       const language = languages[code];
       return (

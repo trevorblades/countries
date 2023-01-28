@@ -9,6 +9,7 @@
     "@apollo/server": "^4.3.2",
     "@as-integrations/aws-lambda": "^2.0.0",
     "@netlify/functions": "^1.4.0",
+    "@pothos/core": "^3.24.0",
     "countries-list": "^2.6.1",
     "graphql": "^16.6.0",
     "provinces": "^1.11.0",
