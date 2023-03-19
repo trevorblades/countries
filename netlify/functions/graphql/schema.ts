@@ -68,7 +68,7 @@ builder.objectType(CountryRef, {
         })),
     }),
     states: t.field({
-      type: [ProvinceRef],
+      type: [StateRef],
       resolve: (country) =>
         provinces.filter((province) => province.country === country.code),
     }),
@@ -88,9 +88,9 @@ builder.objectType(LanguageRef, {
   }),
 });
 
-const ProvinceRef = builder.objectRef<Province>("Province");
+const StateRef = builder.objectRef<Province>("State");
 
-builder.objectType(ProvinceRef, {
+builder.objectType(StateRef, {
   fields: (t) => ({
     name: t.exposeString("name"),
     code: t.exposeString("short", { nullable: true }),
