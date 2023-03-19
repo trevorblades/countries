@@ -10,6 +10,8 @@ const server = new ApolloServer({
   introspection: true,
 });
 
+// TODO: add usage reporting and schema reporting
+// https://www.apollographql.com/docs/apollo-server/api/plugin/schema-reporting
 export const handler = startServerAndCreateLambdaHandler(
   server,
   handlers.createAPIGatewayProxyEventRequestHandler()
