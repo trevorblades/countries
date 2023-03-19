@@ -1,3 +1,5 @@
 node_modules
 docs/build
-netlify/functions/graphql/resolvers-types.ts
+
+# Local Netlify folder
+.netlify

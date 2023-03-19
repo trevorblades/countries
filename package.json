@@ -1,14 +1,11 @@
 {
   "scripts": {
-    "gql": "graphql-codegen",
-    "start": "nodemon index.js",
-    "pretest": "eslint index.js",
+    "start": "netlify dev",
     "test": "echo \"Error: no test specified\" && exit"
   },
   "dependencies": {
-    "@apollo/server": "^4.3.2",
-    "@as-integrations/aws-lambda": "^2.0.0",
-    "@netlify/functions": "^1.4.0",
+    "@apollo/server": "^4.5.0",
+    "@as-integrations/aws-lambda": "^2.0.1",
     "@pothos/core": "^3.24.0",
     "countries-list": "^2.6.1",
     "graphql": "^16.6.0",
@@ -16,14 +13,12 @@
     "sift": "^16.0.1"
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "2.16.3",
-    "@graphql-codegen/typescript": "^2.8.7",
-    "@graphql-codegen/typescript-resolvers": "^2.7.12",
     "@trevorblades/eslint-plugin": "^1.2.3",
     "@types/provinces": "^1.11.4",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "netlify-cli": "^13.1.6",
     "nodemon": "^2.0.19",
     "prettier": "2.7.1",
     "typescript": "^4.9.4"

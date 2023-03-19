@@ -5,4 +5,7 @@ module.exports = {
     "plugin:@trevorblades/graphql",
     "plugin:prettier/recommended",
   ],
+  rules: {
+    "@typescript-eslint/consistent-type-imports": "warn",
+  },
 };
