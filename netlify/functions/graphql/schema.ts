@@ -42,6 +42,9 @@ builder.objectType(CountryRef, {
     name: t.exposeString("name"),
     native: t.exposeString("native"),
     phone: t.exposeString("phone"),
+    phones: t.stringList({
+      resolve: (country) => country.phone.split(","),
+    }),
     capital: t.string({
       nullable: true,
       resolve: (country) => country.capital || null, // account for empty string
@@ -49,6 +52,9 @@ builder.objectType(CountryRef, {
     currency: t.string({
       nullable: true,
       resolve: (country) => country.currency || null, // account for empty string
+    }),
+    currencies: t.stringList({
+      resolve: (country) => country.currency.split(","),
     }),
     emoji: t.exposeString("emoji"),
     emojiU: t.exposeString("emojiU"),
