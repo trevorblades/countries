@@ -19,7 +19,7 @@ class Continent {
 builder.objectType(Continent, {
   name: "Continent",
   fields: (t) => ({
-    code: t.exposeString("code"),
+    code: t.exposeID("code"),
     name: t.exposeString("name"),
     countries: t.field({
       type: [CountryRef],
@@ -38,7 +38,7 @@ const CountryRef = builder.objectRef<Country & { code: string }>("Country");
 
 builder.objectType(CountryRef, {
   fields: (t) => ({
-    code: t.exposeString("code"),
+    code: t.exposeID("code"),
     name: t.exposeString("name"),
     native: t.exposeString("native"),
     phone: t.exposeString("phone"),
@@ -86,7 +86,7 @@ const LanguageRef = builder.objectRef<Language & { code: string }>("Language");
 
 builder.objectType(LanguageRef, {
   fields: (t) => ({
-    code: t.exposeString("code"),
+    code: t.exposeID("code"),
     name: t.exposeString("name"),
     native: t.exposeString("native"),
     rtl: t.boolean({
@@ -167,10 +167,13 @@ builder.queryType({
     continent: t.field({
       type: Continent,
       args: {
-        code: t.arg.string({ required: true }),
+        code: t.arg.id({ required: true }),
       },
       resolve: (_, { code }) =>
-        new Continent(code, continents[code as keyof typeof continents]),
+        new Continent(
+          code.toString(),
+          continents[code as keyof typeof continents]
+        ),
     }),
     countries: t.field({
       type: [CountryRef],
@@ -191,11 +194,11 @@ builder.queryType({
     country: t.field({
       type: CountryRef,
       args: {
-        code: t.arg.string({ required: true }),
+        code: t.arg.id({ required: true }),
       },
       resolve: (_, { code }) => ({
         ...countries[code as keyof typeof countries],
-        code,
+        code: code.toString(),
       }),
     }),
     languages: t.field({
@@ -217,11 +220,11 @@ builder.queryType({
     language: t.field({
       type: LanguageRef,
       args: {
-        code: t.arg.string({ required: true }),
+        code: t.arg.id({ required: true }),
       },
       resolve: (_, { code }) => ({
         ...languages[code as keyof typeof languages],
-        code,
+        code: code.toString(),
       }),
     }),
   }),
