@@ -75,3 +75,5 @@ Read about all of the fields available and view example queries in [the docs](ht
 ## License
 
 [MIT](./LICENSE)
+
+[![Powered by Stellate, the GraphQL API Management platform](https://stellate.co/badge.svg)](https://stellate.co/?ref=powered-by)
