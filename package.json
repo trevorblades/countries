@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "netlify dev",
-    "test": "echo \"Error: no test specified\" && exit"
+    "test": "jest"
   },
   "dependencies": {
     "@apollo/server": "^4.5.0",
@@ -14,12 +14,16 @@
   },
   "devDependencies": {
     "@trevorblades/eslint-plugin": "^1.2.3",
+    "@types/jest": "^29.5.0",
     "@types/provinces": "^1.11.4",
     "eslint": "^8.23.0",
     "eslint-config-prettier": "^8.5.0",
     "eslint-plugin-prettier": "^4.2.1",
+    "jest": "^29.5.0",
     "netlify-cli": "^13.1.6",
     "prettier": "2.7.1",
+    "ts-jest": "^29.0.5",
+    "ts-node": "^10.9.1",
     "typescript": "^4.9.4"
   }
 }

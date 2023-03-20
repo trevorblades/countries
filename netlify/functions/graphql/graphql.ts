@@ -5,7 +5,7 @@ import {
 } from "@as-integrations/aws-lambda";
 import { schema } from "./schema";
 
-const server = new ApolloServer({
+export const server = new ApolloServer({
   schema,
   introspection: true,
 });
