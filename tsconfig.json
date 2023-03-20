@@ -1,8 +1,7 @@
 {
   "compilerOptions": {
-    "target": "ES2015",
-    "moduleResolution": "node",
     "esModuleInterop": true,
+    "isolatedModules": true,
     "strict": true,
   }
 }

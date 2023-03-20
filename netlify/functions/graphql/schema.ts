@@ -1,5 +1,6 @@
 import SchemaBuilder from "@pothos/core";
 import provinces from "provinces";
+import sift, { $eq, $in, $ne, $nin, $regex } from "sift";
 import { continents, countries, languages } from "countries-list";
 import type { Country, Language } from "countries-list";
 
@@ -104,14 +105,58 @@ builder.objectType(StateRef, {
   }),
 });
 
+const StringQueryOperatorInput = builder.inputType("StringQueryOperatorInput", {
+  fields: (t) => ({
+    eq: t.string(),
+    ne: t.string(),
+    in: t.stringList(),
+    nin: t.stringList(),
+    regex: t.string(),
+  }),
+});
+
+const CountryFilterInput = builder.inputType("CountryFilterInput", {
+  fields: (t) => ({
+    code: t.field({ type: StringQueryOperatorInput }),
+    currency: t.field({ type: StringQueryOperatorInput }),
+    continent: t.field({ type: StringQueryOperatorInput }),
+  }),
+});
+
+const ContinentFilterInput = builder.inputType("ContinentFilterInput", {
+  fields: (t) => ({
+    code: t.field({ type: StringQueryOperatorInput }),
+  }),
+});
+
+const LanguageFilterInput = builder.inputType("LanguageFilterInput", {
+  fields: (t) => ({
+    code: t.field({ type: StringQueryOperatorInput }),
+  }),
+});
+
+const operations = {
+  eq: $eq,
+  ne: $ne,
+  in: $in,
+  nin: $nin,
+  regex: $regex,
+};
+
 builder.queryType({
   fields: (t) => ({
     continents: t.field({
       type: [Continent],
-      resolve: () =>
-        Object.entries(continents).map(
-          ([code, name]) => new Continent(code, name)
-        ),
+      args: {
+        filter: t.arg({
+          type: ContinentFilterInput,
+          defaultValue: {},
+        }),
+      },
+      resolve: (_, { filter }) =>
+        Object.entries(continents)
+          .map(([code, name]) => new Continent(code, name))
+          .filter(sift(filter, { operations })),
     }),
     continent: t.field({
       type: Continent,
@@ -123,11 +168,19 @@ builder.queryType({
     }),
     countries: t.field({
       type: [CountryRef],
-      resolve: () =>
-        Object.entries(countries).map(([code, country]) => ({
-          ...country,
-          code,
-        })),
+      args: {
+        filter: t.arg({
+          type: CountryFilterInput,
+          defaultValue: {},
+        }),
+      },
+      resolve: (_, { filter }) =>
+        Object.entries(countries)
+          .map(([code, country]) => ({
+            ...country,
+            code,
+          }))
+          .filter(sift(filter, { operations })),
     }),
     country: t.field({
       type: CountryRef,
@@ -141,11 +194,19 @@ builder.queryType({
     }),
     languages: t.field({
       type: [LanguageRef],
-      resolve: () =>
-        Object.entries(languages).map(([code, language]) => ({
-          ...language,
-          code,
-        })),
+      args: {
+        filter: t.arg({
+          type: LanguageFilterInput,
+          defaultValue: {},
+        }),
+      },
+      resolve: (_, { filter }) =>
+        Object.entries(languages)
+          .map(([code, language]) => ({
+            ...language,
+            code,
+          }))
+          .filter(sift(filter, { operations })),
     }),
     language: t.field({
       type: LanguageRef,
