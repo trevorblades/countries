@@ -1,4 +1,9 @@
-module.exports = {
+// @ts-check
+
+/**
+ * @type {import('eslint').ESLint.ConfigData}
+ */
+const config = {
   extends: [
     "plugin:@trevorblades/node",
     "plugin:@trevorblades/typescript",
@@ -9,3 +14,5 @@ module.exports = {
     "@typescript-eslint/consistent-type-imports": "warn",
   },
 };
+
+module.exports = config;
