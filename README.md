@@ -16,8 +16,8 @@ A public GraphQL API for information about countries, continents, and languages.
 
 1. The codes used to key the objects in the original data are available as a `code` property on each item returned from the API.
 1. The `Country.continent` and `Country.languages` are now objects and arrays of objects, respectively.
-1. Each `Country` has an array of `states` populated by their states/provinces, if any.
 1. The `Country.currency` and `Country.phone` fields _sometimes_ return a comma-separated list of values. For this reason, this API also exposes `currencies` and `phones` fields that are arrays of all currencies and phone codes for a country.
+1. Each `Country` has an array of `states` populated by their states/provinces, if any.
 
 ## Writing queries
 
