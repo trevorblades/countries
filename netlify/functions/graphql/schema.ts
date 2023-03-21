@@ -149,6 +149,18 @@ const operations = {
   regex: $regex,
 };
 
+const isValidContinentCode = (
+  code: string | number
+): code is keyof typeof continents => code in continents;
+
+const isValidCountryCode = (
+  code: string | number
+): code is keyof typeof countries => code in countries;
+
+const isValidLanguageCode = (
+  code: string | number
+): code is keyof typeof languages => code in languages;
+
 builder.queryType({
   fields: (t) => ({
     continents: t.field({
@@ -171,11 +183,11 @@ builder.queryType({
       args: {
         code: t.arg.id({ required: true }),
       },
+      nullable: true,
       resolve: (_, { code }) =>
-        new Continent(
-          code.toString(),
-          continents[code as keyof typeof continents]
-        ),
+        isValidContinentCode(code)
+          ? new Continent(code, continents[code])
+          : null,
     }),
     countries: t.field({
       type: [CountryRef],
@@ -199,10 +211,14 @@ builder.queryType({
       args: {
         code: t.arg.id({ required: true }),
       },
-      resolve: (_, { code }) => ({
-        ...countries[code as keyof typeof countries],
-        code: code.toString(),
-      }),
+      nullable: true,
+      resolve: (_, { code }) =>
+        isValidCountryCode(code)
+          ? {
+              ...countries[code],
+              code,
+            }
+          : null,
     }),
     languages: t.field({
       type: [LanguageRef],
@@ -225,10 +241,14 @@ builder.queryType({
       args: {
         code: t.arg.id({ required: true }),
       },
-      resolve: (_, { code }) => ({
-        ...languages[code as keyof typeof languages],
-        code: code.toString(),
-      }),
+      nullable: true,
+      resolve: (_, { code }) =>
+        isValidLanguageCode(code)
+          ? {
+              ...languages[code],
+              code,
+            }
+          : null,
     }),
   }),
 });
