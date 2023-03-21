@@ -2,6 +2,7 @@ import SchemaBuilder from "@pothos/core";
 import provinces from "provinces";
 import sift, { $eq, $in, $ne, $nin, $regex } from "sift";
 import { continents, countries, languages } from "countries-list";
+import { countryToAwsRegion } from "country-to-aws-region";
 import type { Country, Language } from "countries-list";
 
 const builder = new SchemaBuilder({});
@@ -78,6 +79,9 @@ builder.objectType(CountryRef, {
       type: [StateRef],
       resolve: (country) =>
         provinces.filter((province) => province.country === country.code),
+    }),
+    awsRegion: t.string({
+      resolve: (country) => countryToAwsRegion(country.code),
     }),
   }),
 });
