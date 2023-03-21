@@ -8,6 +8,7 @@
     "@as-integrations/aws-lambda": "^2.0.1",
     "@pothos/core": "^3.24.0",
     "countries-list": "^2.6.1",
+    "country-to-aws-region": "^1.0.3",
     "graphql": "^16.6.0",
     "provinces": "^1.11.0",
     "sift": "^17.0.1"

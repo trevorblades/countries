@@ -3823,6 +3823,11 @@ countries-list@^2.6.1:
   resolved "https://registry.yarnpkg.com/countries-list/-/countries-list-2.6.1.tgz#d479757ac873b1e596ccea0a925962d20396c0cb"
   integrity sha512-jXM1Nv3U56dPQ1DsUSsEaGmLHburo4fnB7m+1yhWDUVvx5gXCd1ok/y3gXCjXzhqyawG+igcPYcAl4qjkvopaQ==
 
+country-to-aws-region@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/country-to-aws-region/-/country-to-aws-region-1.0.3.tgz#533d43bec2d95fc3b5f5403b4922fc3cb05ae96a"
+  integrity sha512-1brjqJ8GNFMXEBrqyelk713mzyKrkWY7r3a51VzDT6xLY584GbUCQ2u54oCfE2KPfBHjenOqktjZbMP63e+hsw==
+
 cp-file@^10.0.0:
   version "10.0.0"
   resolved "https://registry.yarnpkg.com/cp-file/-/cp-file-10.0.0.tgz#bbae9ecb9f505951b862880d2901e1f56de7a4dc"
