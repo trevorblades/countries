@@ -28,6 +28,23 @@ it("returns filtered data", async () => {
   expect(response.body.singleResult.data?.countries).toHaveLength(2);
 });
 
+it("filters a single value", async () => {
+  const response = await server.executeOperation({
+    query,
+    variables: {
+      filter: {
+        code: {
+          eq: "US",
+        },
+      },
+    },
+  });
+
+  assert(response.body.kind === "single");
+  expect(response.body.singleResult.errors).toBeUndefined();
+  expect(response.body.singleResult.data?.countries).toHaveLength(1);
+});
+
 it("returns all data if no filter is provided", async () => {
   const response = await server.executeOperation({ query });
 

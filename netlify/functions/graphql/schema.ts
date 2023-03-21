@@ -162,7 +162,9 @@ builder.queryType({
       resolve: (_, { filter }) =>
         Object.entries(continents)
           .map(([code, name]) => new Continent(code, name))
-          .filter(sift(filter, { operations })),
+          // need to parse and stringify because of some null prototype
+          // see https://stackoverflow.com/q/53983315/8190832
+          .filter(sift(JSON.parse(JSON.stringify(filter)), { operations })),
     }),
     continent: t.field({
       type: Continent,
@@ -183,13 +185,14 @@ builder.queryType({
           defaultValue: {},
         }),
       },
-      resolve: (_, { filter }) =>
-        Object.entries(countries)
+      resolve: (_, { filter }) => {
+        return Object.entries(countries)
           .map(([code, country]) => ({
             ...country,
             code,
           }))
-          .filter(sift(filter, { operations })),
+          .filter(sift(JSON.parse(JSON.stringify(filter)), { operations }));
+      },
     }),
     country: t.field({
       type: CountryRef,
@@ -215,7 +218,7 @@ builder.queryType({
             ...language,
             code,
           }))
-          .filter(sift(filter, { operations })),
+          .filter(sift(JSON.parse(JSON.stringify(filter)), { operations })),
     }),
     language: t.field({
       type: LanguageRef,
