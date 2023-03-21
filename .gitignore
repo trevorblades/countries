@@ -1,2 +1,5 @@
 node_modules
 docs/build
+
+# Local Netlify folder
+.netlify

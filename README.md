@@ -12,16 +12,17 @@
 
 </div>
 
-A public GraphQL API for information about countries, continents, and languages. This project uses [Countries List](https://annexare.github.io/Countries/) and [`provinces`](https://github.com/substack/provinces) as data sources, so the schema follows the shape of that data, with a few exceptions:
+A public GraphQL API for information about countries, continents, and languages. This project uses [Countries List](https://annexare.github.io/Countries/) and [`provinces`](https://www.npmjs.com/package/provinces) as data sources, so the schema follows the shape of that data, with a few exceptions:
 
 1. The codes used to key the objects in the original data are available as a `code` property on each item returned from the API.
-2. The `country.continent` and `country.languages` are now objects and arrays of objects, respectively.
-3. Each `Country` has an array of `states` populated by their states/provinces, if any.
+1. The `Country.continent` and `Country.languages` are now objects and arrays of objects, respectively.
+1. The `Country.currency` and `Country.phone` fields _sometimes_ return a comma-separated list of values. For this reason, this API also exposes `currencies` and `phones` fields that are arrays of all currencies and phone codes for a country.
+1. Each `Country` has an array of `states` populated by their states/provinces, if any.
 
 ## Writing queries
 
 ```graphql
-{
+query GetCountry {
   country(code: "BR") {
     name
     native
@@ -58,9 +59,54 @@ The above GraphQL query will produce the following JSON response:
 }
 ```
 
-## Docs
+Check out [the playground](https://countries.trevorblades.com) to explore the schema and test out some queries.
 
-Read about all of the fields available and view example queries in [the docs](https://trevorblades.github.io/countries). You can also check out [the playground](https://countries.trevorblades.com) to explore the schema and test out some queries.
+## Filtering
+
+The `countries`, `continents`, and `languages` top-level `Query` fields accept an optional `filter` argument that causes results to be filtered on one or more subfields. The `continents` and `languages` fields can be filtered by their `code`, while `countries` can be filtered by `code`, `currency`, or `continent`.
+
+The filtering logic is powered by [sift](https://github.com/crcn/sift.js) and this API supports the following operators: `eq`, `ne`, `in`, `nin`, and `regex`. To learn more about these operators and how they work, check out [the sift docs](https://github.com/crcn/sift.js#supported-operators).
+
+Here are some examples of filtering that you can copy and paste into [the playground](https://countries.trevorblades.com) to try for yourself:
+
+```graphql
+query ListCountriesThatUseUSD {
+  countries(filter: {
+    currency: {
+      eq: "USD"
+    }
+  }) {
+    code
+    name
+  }
+}
+
+query ListCountriesInNAFTA {
+  countries(filter: {
+    code: {
+      in: ["US", "CA", "MX"]
+    }
+  }) {
+    code
+    name
+    languages {
+      name
+    }
+  }
+}
+
+query ListCountriesThatBeginWithTheLetterA {
+  countries(filter: {
+    name: {
+      regex: "^A"
+    }
+  }) {
+    code
+    name
+    currency
+  }
+}
+```
 
 ## Examples
 
@@ -75,3 +121,5 @@ Read about all of the fields available and view example queries in [the docs](ht
 ## License
 
 [MIT](./LICENSE)
+
+[![Powered by Stellate, the GraphQL API Management platform](https://stellate.co/badge.svg)](https://stellate.co/?ref=powered-by)
