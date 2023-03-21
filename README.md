@@ -71,22 +71,14 @@ Here are some examples of filtering that you can copy and paste into [the playgr
 
 ```graphql
 query ListCountriesThatUseUSD {
-  countries(filter: {
-    currency: {
-      eq: "USD"
-    }
-  }) {
+  countries(filter: { currency: { eq: "USD" } }) {
     code
     name
   }
 }
 
 query ListCountriesInNAFTA {
-  countries(filter: {
-    code: {
-      in: ["US", "CA", "MX"]
-    }
-  }) {
+  countries(filter: { code: { in: ["US", "CA", "MX"] } }) {
     code
     name
     languages {
@@ -96,11 +88,7 @@ query ListCountriesInNAFTA {
 }
 
 query ListCountriesThatBeginWithTheLetterA {
-  countries(filter: {
-    name: {
-      regex: "^A"
-    }
-  }) {
+  countries(filter: { name: { regex: "^A" } }) {
     code
     name
     currency
