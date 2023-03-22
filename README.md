@@ -18,6 +18,7 @@ A public GraphQL API for information about countries, continents, and languages.
 1. The `Country.continent` and `Country.languages` are now objects and arrays of objects, respectively.
 1. The `Country.currency` and `Country.phone` fields _sometimes_ return a comma-separated list of values. For this reason, this API also exposes `currencies` and `phones` fields that are arrays of all currencies and phone codes for a country.
 1. Each `Country` has an array of `states` populated by their states/provinces, if any.
+1. Each `Country` also has an `awsRegion` field that shows its nearest AWS region, powered by [`country-to-aws-region`](https://github.com/Zeryther/country-to-aws-region).
 
 ## Writing queries
 
