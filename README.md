@@ -66,6 +66,8 @@ Check out [the playground](https://countries.trevorblades.com) to explore the sc
 
 The `countries`, `continents`, and `languages` top-level `Query` fields accept an optional `filter` argument that causes results to be filtered on one or more subfields. The `continents` and `languages` fields can be filtered by their `code`, while `countries` can be filtered by `code`, `currency`, or `continent`.
 
+> Note: The `continent` filter on the `Query.countries` field must be the continent code, i.e. "SA" for South America.
+
 The filtering logic is powered by [sift](https://github.com/crcn/sift.js) and this API supports the following operators: `eq`, `ne`, `in`, `nin`, and `regex`. To learn more about these operators and how they work, check out [the sift docs](https://github.com/crcn/sift.js#supported-operators).
 
 Here are some examples of filtering that you can copy and paste into [the playground](https://countries.trevorblades.com) to try for yourself:
