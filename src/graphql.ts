@@ -3,4 +3,6 @@ import { schema } from "./schema";
 
 export const yoga = createYoga({ schema });
 
-self.addEventListener("fetch", yoga);
+export default {
+  fetch: yoga.fetch,
+};

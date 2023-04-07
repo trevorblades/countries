@@ -1,3 +1,3 @@
-name = "white-cloud-78b7"
+name = "countries"
 compatibility_date = "2023-04-07"
 main = "src/graphql.ts"
