@@ -5,6 +5,10 @@ import provinces from "provinces";
 import sift, { $eq, $in, $ne, $nin, $regex } from "sift";
 import { GraphQLError } from "graphql";
 import { continents, countries, languages } from "countries-list";
+import {
+  countriesThatHaveBannedMcDonalds,
+  countriesWithoutMcDonalds,
+} from "./mcdonalds";
 import { countryToAwsRegion } from "country-to-aws-region";
 import { getName, langs } from "i18n-iso-countries";
 import { pathToArray } from "@graphql-tools/utils";
@@ -113,6 +117,13 @@ builder.objectType(CountryRef, {
     }),
     awsRegion: t.string({
       resolve: (country) => countryToAwsRegion(country.code),
+    }),
+    hasMcDonalds: t.boolean({
+      resolve: (country) => !countriesWithoutMcDonalds.includes(country.code),
+    }),
+    isMcDonaldsIllegal: t.boolean({
+      resolve: (country) =>
+        countriesThatHaveBannedMcDonalds.includes(country.code),
     }),
   }),
 });
