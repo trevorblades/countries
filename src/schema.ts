@@ -1,11 +1,29 @@
+import "./locales";
 import SchemaBuilder from "@pothos/core";
+import ValidationPlugin from "@pothos/plugin-validation";
 import provinces from "provinces";
 import sift, { $eq, $in, $ne, $nin, $regex } from "sift";
+import { GraphQLError } from "graphql";
 import { continents, countries, languages } from "countries-list";
 import { countryToAwsRegion } from "country-to-aws-region";
+import { getName, langs } from "i18n-iso-countries";
+import { pathToArray } from "@graphql-tools/utils";
 import type { Country, Language } from "countries-list";
 
-const builder = new SchemaBuilder({});
+const builder = new SchemaBuilder({
+  plugins: [ValidationPlugin],
+  validationOptions: {
+    validationError: (zodError, _, __, info) => {
+      const [{ message, path }] = zodError.issues;
+      return new GraphQLError(message, {
+        path: [...pathToArray(info.path), ...path],
+        extensions: {
+          code: "VALIDATION_ERROR",
+        },
+      });
+    },
+  },
+});
 
 class Continent {
   code: string;
@@ -40,7 +58,20 @@ const CountryRef = builder.objectRef<Country & { code: string }>("Country");
 builder.objectType(CountryRef, {
   fields: (t) => ({
     code: t.exposeID("code"),
-    name: t.exposeString("name"),
+    name: t.string({
+      args: {
+        lang: t.arg.string({
+          validate: (lang) => langs().includes(lang),
+        }),
+      },
+      resolve: async (country, { lang }) => {
+        if (lang) {
+          return getName(country.code, lang);
+        }
+
+        return country.name;
+      },
+    }),
     native: t.exposeString("native"),
     phone: t.exposeString("phone"),
     phones: t.stringList({

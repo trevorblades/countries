@@ -5,13 +5,17 @@
     "test": "jest"
   },
   "dependencies": {
-    "@pothos/core": "^3.24.0",
+    "@graphql-tools/utils": "^9.2.1",
+    "@pothos/core": "^3.29.0",
+    "@pothos/plugin-validation": "^3.9.0",
     "countries-list": "^2.6.1",
     "country-to-aws-region": "^1.0.3",
     "graphql": "^16.6.0",
     "graphql-yoga": "^3.8.0",
+    "i18n-iso-countries": "^7.6.0",
     "provinces": "^1.11.0",
-    "sift": "^17.0.1"
+    "sift": "^17.0.1",
+    "zod": "^3.21.4"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230404.0",
