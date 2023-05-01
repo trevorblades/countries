@@ -6,11 +6,11 @@ import sift, { $eq, $in, $ne, $nin, $regex } from "sift";
 import { GraphQLError } from "graphql";
 import { continents, countries, languages } from "countries-list";
 import { countryToAwsRegion } from "country-to-aws-region";
+import { country as getCountry } from "iso-3166-2";
 import { getName, langs } from "i18n-iso-countries";
-import { iso31662 } from "iso-3166";
 import { pathToArray } from "@graphql-tools/utils";
 import type { Country, Language } from "countries-list";
-import type { ISO31662Entry } from "iso-3166";
+import type { SubdivisionInfo } from "iso-3166-2";
 
 const builder = new SchemaBuilder({
   plugins: [ValidationPlugin],
@@ -55,7 +55,9 @@ builder.objectType(Continent, {
   }),
 });
 
-const SubdivisionRef = builder.objectRef<ISO31662Entry>("Subdivision");
+const SubdivisionRef = builder.objectRef<
+  SubdivisionInfo.Partial & { code: string }
+>("Subdivision");
 
 builder.objectType(SubdivisionRef, {
   fields: (t) => ({
@@ -134,6 +136,7 @@ builder.objectType(CountryRef, {
     }),
     states: t.field({
       type: [StateRef],
+      // TODO: deprecate this resolver and merge with subdivisions
       resolve: (country) =>
         provinces.filter((province) => province.country === country.code),
     }),
@@ -142,8 +145,23 @@ builder.objectType(CountryRef, {
     }),
     subdivisions: t.field({
       type: [SubdivisionRef],
-      resolve: (country) =>
-        iso31662.filter((sub) => sub.parent === country.code),
+      resolve: ({ code }) => {
+        const country = getCountry(code);
+        if (!country) {
+          return [];
+        }
+
+        return Object.entries(country.sub)
+          .map(([code, sub]) => ({
+            ...sub,
+            code,
+          }))
+          .filter(
+            (sub) =>
+              // account for subdivisions of Great Britain
+              sub.type === "Country" || sub.type === "Province"
+          );
+      },
     }),
   }),
 });

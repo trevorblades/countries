@@ -65,3 +65,21 @@ it("returns all data if no filter is provided", async () => {
 
   expect(result.data?.countries).toHaveLength(Object.keys(countries).length);
 });
+
+it("returns data about country subdivisions", async () => {
+  const result = await executor({
+    document: parse(/* GraphQL */ `
+      query ListBritishSubdivisions {
+        country(code: "GB") {
+          subdivisions {
+            code
+          }
+        }
+      }
+    `),
+  });
+
+  assertSingleValue(result);
+
+  expect(result.data?.country.subdivisions).toHaveLength(4);
+});
