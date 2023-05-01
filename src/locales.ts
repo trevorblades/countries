@@ -14,9 +14,14 @@ import vi from "i18n-iso-countries/langs/vi.json";
 import zh from "i18n-iso-countries/langs/zh.json";
 import { registerLocale } from "i18n-iso-countries";
 
-// languages with > 1% estimated usage on the internet
-// see: https://en.wikipedia.org/wiki/Languages_used_on_the_Internet#Content_languages_for_websites
+/**
+ * Languages with > 1% estimated usage on the internet
+ *
+ * @see {@link https://en.wikipedia.org/wiki/Languages_used_on_the_Internet#Content_languages_for_websites}
+ */
+
 const locales = [en, ru, es, fr, de, ja, tr, pt, fa, it, zh, nl, pl, vi];
+
 for (const locale of locales) {
   registerLocale(locale);
 }
