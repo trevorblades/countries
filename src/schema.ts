@@ -7,8 +7,10 @@ import { GraphQLError } from "graphql";
 import { continents, countries, languages } from "countries-list";
 import { countryToAwsRegion } from "country-to-aws-region";
 import { getName, langs } from "i18n-iso-countries";
+import { iso31662 } from "iso-3166";
 import { pathToArray } from "@graphql-tools/utils";
 import type { Country, Language } from "countries-list";
+import type { ISO31662Entry } from "iso-3166";
 
 const builder = new SchemaBuilder({
   plugins: [ValidationPlugin],
@@ -49,6 +51,30 @@ builder.objectType(Continent, {
             ...country,
             code,
           })),
+    }),
+  }),
+});
+
+const SubdivisionRef = builder.objectRef<ISO31662Entry>("Subdivision");
+
+builder.objectType(SubdivisionRef, {
+  fields: (t) => ({
+    code: t.exposeID("code"),
+    name: t.exposeString("name"),
+    emoji: t.string({
+      nullable: true,
+      resolve: (sub) => {
+        switch (sub.code) {
+          case "GB-ENG":
+            return "🏴󠁧󠁢󠁥󠁮󠁧󠁿";
+          case "GB-SCT":
+            return "🏴󠁧󠁢󠁳󠁣󠁴󠁿";
+          case "GB-WLS":
+            return "🏴󠁧󠁢󠁷󠁬󠁳󠁿";
+          default:
+            return null;
+        }
+      },
     }),
   }),
 });
@@ -113,6 +139,11 @@ builder.objectType(CountryRef, {
     }),
     awsRegion: t.string({
       resolve: (country) => countryToAwsRegion(country.code),
+    }),
+    subdivisions: t.field({
+      type: [SubdivisionRef],
+      resolve: (country) =>
+        iso31662.filter((sub) => sub.parent === country.code),
     }),
   }),
 });
