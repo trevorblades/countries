@@ -1,0 +1,9 @@
+
+{
+country(code: "US") {
+code
+name
+phone
+currency
+}
+}
