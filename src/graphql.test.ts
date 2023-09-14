@@ -41,6 +41,23 @@ it("returns filtered data", async () => {
   expect(result.data?.countries).toHaveLength(2);
 });
 
+it("filters names using a regular expression", async () => {
+  const result = await executor({
+    document: query,
+    variables: {
+      filter: {
+        name: {
+          regex: "^United",
+        },
+      },
+    },
+  });
+
+  assertSingleValue(result);
+
+  expect(result.data?.countries).toHaveLength(3);
+});
+
 it("filters a single value", async () => {
   const result = await executor({
     document: query,
