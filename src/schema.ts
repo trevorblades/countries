@@ -208,6 +208,7 @@ const StringQueryOperatorInput = builder.inputType("StringQueryOperatorInput", {
 const CountryFilterInput = builder.inputType("CountryFilterInput", {
   fields: (t) => ({
     code: t.field({ type: StringQueryOperatorInput }),
+    name: t.field({ type: StringQueryOperatorInput }),
     currency: t.field({ type: StringQueryOperatorInput }),
     continent: t.field({ type: StringQueryOperatorInput }),
   }),
