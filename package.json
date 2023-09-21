@@ -10,7 +10,7 @@
     "@pothos/plugin-validation": "^3.9.0",
     "countries-list": "^2.6.1",
     "country-to-aws-region": "^1.0.3",
-    "graphql": "^16.6.0",
+    "graphql": "^16.8.1",
     "graphql-yoga": "^3.8.0",
     "i18n-iso-countries": "^7.6.0",
     "iso-3166-2": "^1.0.0",
