@@ -94,7 +94,7 @@ builder.objectType(CountryRef, {
       },
       resolve: async (country, { lang }) => {
         if (lang) {
-          return getName(country.code, lang);
+          return getName(country.code, lang) ?? country.name;
         }
 
         return country.name;
