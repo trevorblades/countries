@@ -28,13 +28,7 @@ const builder = new SchemaBuilder({
 });
 
 class Continent {
-  code: string;
-  name: string;
-
-  constructor(code: string, name: string) {
-    this.code = code;
-    this.name = name;
-  }
+  constructor(public code: string, public name: string) {}
 }
 
 builder.objectType(Continent, {
