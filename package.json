@@ -34,6 +34,6 @@
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4",
     "vercel": "^33.0.1",
-    "wrangler": "^3.1.1"
+    "wrangler": "^3.19.0"
   }
 }
