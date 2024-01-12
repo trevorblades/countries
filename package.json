@@ -16,7 +16,7 @@
     "iso-3166-2": "^1.0.0",
     "provinces": "^1.11.0",
     "sift": "^17.0.1",
-    "zod": "^3.21.4"
+    "zod": "^3.22.3"
   },
   "devDependencies": {
     "@cloudflare/workers-types": "^4.20230404.0",
