@@ -1,3 +1,4 @@
+import { registerLocale } from "i18n-iso-countries";
 import de from "i18n-iso-countries/langs/de.json";
 import en from "i18n-iso-countries/langs/en.json";
 import es from "i18n-iso-countries/langs/es.json";
@@ -12,7 +13,6 @@ import ru from "i18n-iso-countries/langs/ru.json";
 import tr from "i18n-iso-countries/langs/tr.json";
 import vi from "i18n-iso-countries/langs/vi.json";
 import zh from "i18n-iso-countries/langs/zh.json";
-import { registerLocale } from "i18n-iso-countries";
 
 /**
  * Languages with > 1% estimated usage on the internet
