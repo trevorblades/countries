@@ -17,7 +17,6 @@
         "zod": "^3.21.4",
       },
       "devDependencies": {
-        "@cloudflare/workers-types": "^4.20250813.0",
         "@graphql-tools/executor-http": "^0.1.9",
         "@trevorblades/eslint-plugin": "^1.2.3",
         "@types/iso-3166-2": "^1.0.0",
