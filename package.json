@@ -1,7 +1,8 @@
 {
   "scripts": {
     "dev": "wrangler dev",
-    "test": "jest"
+    "test": "jest",
+    "generate-types": "wrangler types"
   },
   "dependencies": {
     "@graphql-tools/utils": "^9.2.1",
@@ -18,7 +19,6 @@
     "zod": "^3.21.4"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20230404.0",
     "@graphql-tools/executor-http": "^0.1.9",
     "@trevorblades/eslint-plugin": "^1.2.3",
     "@types/iso-3166-2": "^1.0.0",
@@ -32,7 +32,6 @@
     "ts-jest": "^29.0.5",
     "ts-node": "^10.9.1",
     "typescript": "^5.0.4",
-    "vercel": "^33.0.1",
-    "wrangler": "^3.1.1"
+    "wrangler": "^4.29.1"
   }
 }
