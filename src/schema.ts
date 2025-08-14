@@ -172,9 +172,14 @@ builder.objectType(LanguageRef, {
     }),
     countries: t.field({
       type: [CountryRef],
-      resolve: (language) => Object.entries(countries)
-        .filter(([, country]) => Array.isArray(country.languages) && country.languages.includes(language.code))
-        .map(([code, country]) => ({...country, code}))
+      resolve: (language) =>
+        Object.entries(countries)
+          .filter(
+            ([, country]) =>
+              Array.isArray(country.languages) &&
+              country.languages.includes(language.code)
+          )
+          .map(([code, country]) => ({ ...country, code })),
     }),
   }),
 });

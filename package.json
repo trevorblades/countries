@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "start": "wrangler dev",
-    "deploy": "wrangler publish",
+    "dev": "wrangler dev",
     "test": "jest"
   },
   "dependencies": {
