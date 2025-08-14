@@ -170,6 +170,12 @@ builder.objectType(LanguageRef, {
     rtl: t.boolean({
       resolve: (language) => language.rtl === 1,
     }),
+    countries: t.field({
+      type: [CountryRef],
+      resolve: (language) => Object.entries(countries)
+        .filter(([, country]) => Array.isArray(country.languages) && country.languages.includes(language.code))
+        .map(([code, country]) => ({...country, code}))
+    }),
   }),
 });
 
