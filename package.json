@@ -1,7 +1,6 @@
 {
   "scripts": {
-    "dev": "wrangler dev",
-    "test": "jest"
+    "dev": "wrangler dev"
   },
   "dependencies": {
     "@graphql-tools/utils": "^10.9.1",
