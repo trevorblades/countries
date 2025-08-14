@@ -1,24 +1,25 @@
 import "./locales";
+
+import { pathToArray } from "@graphql-tools/utils";
 import SchemaBuilder from "@pothos/core";
-import ValidationPlugin from "@pothos/plugin-validation";
-import provinces from "provinces";
-import sift, { $eq, $in, $ne, $nin, $regex } from "sift";
-import { GraphQLError } from "graphql";
+import ZodPlugin from "@pothos/plugin-zod";
+import type { Country, Language } from "countries-list";
 import { continents, countries, languages } from "countries-list";
 import { countryToAwsRegion } from "country-to-aws-region";
-import { country as getCountry } from "iso-3166-2";
+import { GraphQLError } from "graphql";
 import { getName, langs } from "i18n-iso-countries";
-import { pathToArray } from "@graphql-tools/utils";
-import type { Country, Language } from "countries-list";
 import type { SubdivisionInfo } from "iso-3166-2";
+import { country as getCountry } from "iso-3166-2";
+import provinces from "provinces";
+import sift, { $eq, $in, $ne, $nin, $regex } from "sift";
 
 const builder = new SchemaBuilder({
-  plugins: [ValidationPlugin],
-  validationOptions: {
+  plugins: [ZodPlugin],
+  zod: {
     validationError: (zodError, _, __, info) => {
       const [{ message, path }] = zodError.issues;
       return new GraphQLError(message, {
-        path: [...pathToArray(info.path), ...path],
+        path: [...pathToArray(info.path), ...path.map((p) => p.toString())],
         extensions: {
           code: "VALIDATION_ERROR",
         },
@@ -28,7 +29,10 @@ const builder = new SchemaBuilder({
 });
 
 class Continent {
-  constructor(public code: string, public name: string) {}
+  constructor(
+    public code: string,
+    public name: string,
+  ) {}
 }
 
 builder.objectType(Continent, {
@@ -117,7 +121,7 @@ builder.objectType(CountryRef, {
       resolve: (country) =>
         new Continent(
           country.continent,
-          continents[country.continent as keyof typeof continents]
+          continents[country.continent as keyof typeof continents],
         ),
     }),
     languages: t.field({
@@ -153,7 +157,7 @@ builder.objectType(CountryRef, {
           .filter(
             (sub) =>
               // account for subdivisions of Great Britain
-              sub.type === "Country" || sub.type === "Province"
+              sub.type === "Country" || sub.type === "Province",
           );
       },
     }),
@@ -177,7 +181,7 @@ builder.objectType(LanguageRef, {
           .filter(
             ([, country]) =>
               Array.isArray(country.languages) &&
-              country.languages.includes(language.code)
+              country.languages.includes(language.code),
           )
           .map(([code, country]) => ({ ...country, code })),
     }),
@@ -240,15 +244,15 @@ const operations = {
 };
 
 const isValidContinentCode = (
-  code: string | number
+  code: string | number,
 ): code is keyof typeof continents => code in continents;
 
 const isValidCountryCode = (
-  code: string | number
+  code: string | number,
 ): code is keyof typeof countries => code in countries;
 
 const isValidLanguageCode = (
-  code: string | number
+  code: string | number,
 ): code is keyof typeof languages => code in languages;
 
 builder.queryType({

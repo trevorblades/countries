@@ -80,7 +80,7 @@ query ListCountriesThatUseUSD {
   }
 }
 
-query ListCountriesInNAFTA {
+query ListCountriesInCUSMA {
   countries(filter: { code: { in: ["US", "CA", "MX"] } }) {
     code
     name

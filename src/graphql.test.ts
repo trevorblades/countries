@@ -1,13 +1,15 @@
 import { buildHTTPExecutor } from "@graphql-tools/executor-http";
 import { countries } from "countries-list";
 import { parse } from "graphql";
+
 import { yoga } from "./graphql";
 
 const executor = buildHTTPExecutor({
   fetch: yoga.fetch,
+  endpoint: "http://yoga/graphql",
 });
 
-const query = parse(/* GraphQL */ `
+const ListFilteredCountriesQuery = parse(/* GraphQL */ `
   query ListFilteredCountries($filter: CountryFilterInput) {
     countries(filter: $filter) {
       name
@@ -17,7 +19,7 @@ const query = parse(/* GraphQL */ `
 `);
 
 function assertSingleValue<TValue extends object>(
-  value: TValue | AsyncIterable<TValue>
+  value: TValue | AsyncIterable<TValue>,
 ): asserts value is TValue {
   if (Symbol.asyncIterator in value) {
     throw new Error("Expected single value");
@@ -26,7 +28,7 @@ function assertSingleValue<TValue extends object>(
 
 it("returns filtered data", async () => {
   const result = await executor({
-    document: query,
+    document: ListFilteredCountriesQuery,
     variables: {
       filter: {
         code: {
@@ -43,7 +45,7 @@ it("returns filtered data", async () => {
 
 it("filters names using a regular expression", async () => {
   const result = await executor({
-    document: query,
+    document: ListFilteredCountriesQuery,
     variables: {
       filter: {
         name: {
@@ -60,7 +62,7 @@ it("filters names using a regular expression", async () => {
 
 it("filters a single value", async () => {
   const result = await executor({
-    document: query,
+    document: ListFilteredCountriesQuery,
     variables: {
       filter: {
         code: {
@@ -76,7 +78,9 @@ it("filters a single value", async () => {
 });
 
 it("returns all data if no filter is provided", async () => {
-  const result = await executor({ document: query });
+  const result = await executor({
+    document: ListFilteredCountriesQuery,
+  });
 
   assertSingleValue(result);
 
