@@ -13,7 +13,10 @@ import { country as getCountry } from "iso-3166-2";
 import provinces from "provinces";
 import sift, { $eq, $in, $ne, $nin, $regex } from "sift";
 
-const builder = new SchemaBuilder({
+const builder = new SchemaBuilder<{
+  DefaultFieldNullability: false;
+}>({
+  defaultFieldNullability: false,
   plugins: [ZodPlugin],
   zod: {
     validationError: (zodError, _, __, info) => {
